@@ -1,0 +1,71 @@
+<!--User Types Title at the top of screen-->
+
+<mat-card class="titleSub">
+  <!-- <mat-card class="titleUserTypesCard">
+    <mat-card-title class="titleUserTypes">User Types</mat-card-title>
+  </mat-card> -->
+  <h1 class="title">User Types</h1>
+  <br>
+  <!--User Type Table-->
+  <mat-card class="tableBtns">
+      <!-- Search Customer Input-->
+      <mat-form-field color="accent" (keyup) = "applyFilter($event)" class="search f-l"  appearance="standard">
+          <mat-label class="searchLable">Search</mat-label>
+          <input matInput #input>
+      </mat-form-field>
+
+      <!-- Add Customer Button-->
+      <button class="addButton f-r" mat-button (click)="addNewType()">
+          <mat-icon aria-hidden="false">add</mat-icon>
+          <span>Add User Type</span>
+      </button>
+  
+   </mat-card>  
+    <!--Add User Type Button-->
+
+   
+
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8"> <!--Not sure wat to do with the datasource-->
+
+      <!-- ID Column -->
+      <ng-container matColumnDef="ID">
+        <th mat-header-cell *matHeaderCellDef> Type ID </th>
+        <td mat-cell *matCellDef="let usertype"> {{usertype.userTypeId}} </td>
+      </ng-container>
+      
+      <!-- Name Column -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef> Type Name </th>
+        <td mat-cell *matCellDef="let usertype"> {{usertype.userTypeName}}</td>
+      </ng-container>
+
+      
+      
+      <!--CRUD Column-->
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let usertype">
+      
+          <button mat-icon-button [matMenuTriggerFor]="menu">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="updateUserType(usertype)">
+              <mat-icon>edit</mat-icon>
+              <span>Update User Type</span>
+            </button>
+            <button mat-menu-item (click)="deleteUserType(usertype)">
+              <mat-icon>delete</mat-icon>
+              <span>Delete User Type</span>
+            </button>
+          </mat-menu>
+      
+        </td>
+      </ng-container>
+
+      <!--Display Colums-->
+      <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    </table>
+</mat-card>

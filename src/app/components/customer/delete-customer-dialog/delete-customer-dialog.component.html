@@ -1,0 +1,30 @@
+<h3 mat-dialog-title>Delete Customer</h3>
+
+<mat-dialog-content *ngFor="let customer of customerData">
+    <h3>Are you sure you want to delete this customer?</h3>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <tbody>
+                <tr>
+                    <th scope="row">Title</th>
+                    <td>{{customer.titleDescr}}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Customer</th>
+                    <td>{{customer.CustomerName}} {{customer.CustomerSurname}}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Competency</th>
+                    <td>{{customer.customerCompetencyType}}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Phone Number</th>
+                    <td>{{customer.CustomerPhoneNo}}</td>
+                </tr>
+        </table>
+    </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-raised-button color="primary" (click)="confirmDeleteCustomer()">Delete</button>
+    <button mat-raised-button color="accent" (click)="onNoClick()">Cancel</button>
+</mat-dialog-actions>

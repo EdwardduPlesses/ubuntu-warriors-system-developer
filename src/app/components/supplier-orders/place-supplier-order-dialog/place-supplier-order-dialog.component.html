@@ -1,0 +1,195 @@
+<button tabindex="-1" class="close" mat-button (click)="onNoClick()">
+  <mat-icon aria-hidden="false">close</mat-icon>
+  </button>
+<div class="container">
+  <h3 mat-dialog-title>Place New Order</h3>
+  <div class="row">
+
+    <form [formGroup]="addOrder" class="mat-dialog-content">
+      <!--Textarea for demo purposes-->
+
+      <!-- <div class="form">
+      <mat-form-field color="accent">
+        <input matInput type="number" #input  placeholder="Customer" id="customerId" formControlName="customerId">
+      </mat-form-field>
+    </div>
+     -->
+
+
+
+      <div class="container">
+        <div class="row">
+          <div class="col">
+            <div class="form">
+              <mat-form-field color="accent" appearance="fill">
+                <mat-label>Supplier</mat-label>
+                <mat-select formControlName="supplierId">
+                  <mat-option *ngFor="let supplier of suppliers" [value]="supplier.supplierId">
+                    {{supplier.supplierName}}
+                  </mat-option>
+                </mat-select>
+                <mat-error *ngIf="addOrder.controls['supplierId'].invalid">{{getErrorMessageSupplierName()}}</mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col">
+
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+
+            <!----Adding Products to Cart---->
+            <mat-card class="products-card">
+              <mat-card-subtitle>Add products to the order</mat-card-subtitle>
+              <mat-card-title>Products</mat-card-title>
+              <mat-card-content>
+                <form [formGroup]="addOrderPLine">
+                  <div class="form">
+                    <mat-form-field color="accent" appearance="fill">
+                      <mat-select formControlName="productId">
+                        <mat-option *ngFor="let product of products" [value]="product.productId">
+                          {{product.productName}}
+                        </mat-option>
+                      </mat-select>
+                      <mat-error *ngIf="addOrderPLine.controls['productId'].invalid">{{getErrorMessageProductName()}}
+                      </mat-error>
+
+                    </mat-form-field>
+                  </div>
+                  <div class="form">
+                    <mat-form-field color="accent">
+                      <input matInput type="number" formControlName="quantity" #input min="0" placeholder="Quantity">
+                      <mat-error *ngIf="addOrderPLine.controls['quantity'].invalid">{{getErrorMessageQuantityP()}}</mat-error>
+                    </mat-form-field>
+                  </div>
+                </form>
+              </mat-card-content>
+              <mat-divider inset></mat-divider>
+              <mat-card-actions>
+                <button mat-raised-button color="primary" [disabled]="!addOrderPLine.valid"
+                  (click)="saveOrderPLine()">Add To Cart</button>
+                <button mat-raised-button (click)="undoOrderPLine()" tabindex="-1" color="accent">Undo</button>
+              </mat-card-actions>
+            </mat-card>
+            <br>
+          </div>
+          <div class="col">
+            <!----Adding Inventory Items to Cart---->
+            <mat-card class="products-card">
+              <mat-card-subtitle>Add inventory items to the order</mat-card-subtitle>
+              <mat-card-title>Inventory</mat-card-title>
+              <mat-card-content>
+                <form [formGroup]="addOrderILine">
+                  <div class="form">
+                    <mat-form-field color="accent" appearance="fill">
+                      <mat-select formControlName="inventoryId">
+                        <mat-option *ngFor="let inventory of inventories" [value]="inventory.inventoryId">
+                          <!----Not sure about this---->
+                          {{inventory.inventoryName}}
+                        </mat-option>
+                      </mat-select>
+                      <mat-error *ngIf="addOrderILine.controls['inventoryId'].invalid">{{getErrorMessageInventoryName()}} </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="form">
+                    <mat-form-field color="accent">
+                      <input matInput type="number" formControlName="quantity" #input min="0" placeholder="Quantity">
+                      <mat-error *ngIf="addOrderILine.controls['quantity'].invalid">{{getErrorMessageQuantityI()}}</mat-error>
+                    </mat-form-field>
+                  </div>
+                </form>
+              </mat-card-content>
+              <mat-divider inset></mat-divider>
+              <mat-card-actions>
+                <button mat-raised-button color="primary" [disabled]="!addOrderILine.valid"
+                  (click)="saveOrderILine()">Add To Cart</button>
+                <button mat-raised-button (click)="undoOrderILine()" tabindex="-1" color="accent">Undo</button>
+              </mat-card-actions>
+            </mat-card>
+          </div>
+        </div>
+
+      </div>
+      <div class="row">
+        <div class="col">
+          <div class="form">
+            <mat-form-field color="accent">
+              <input matInput type="number" #input placeholder="Order Amount" id="orderAmount" min="0" formControlName="orderAmount" required>
+              <mat-error *ngIf="addOrder.controls['orderAmount'].invalid">{{getErrorMessageOrderAmount()}}</mat-error>
+            </mat-form-field>
+          </div>
+
+        </div>
+        <div class="col">
+          <!--Contains mat-hint for characters count and has maxLengt set-->
+          <div class="form">
+            <mat-form-field color="accent">
+              <input matInput type="date" #inputstate placeholder="Order Date Placed" id="supplierOrderDatePlaced"
+                formControlName="supplierOrderDatePlaced" required readonly>
+              <mat-error *ngIf="addOrder.controls['supplierOrderDatePlaced'].invalid">{{getErrorMessageSupplierOrderDatePlaced()}}</mat-error>
+            </mat-form-field>
+          </div>
+
+
+        </div>
+      </div>
+
+      <!-- [type]="submit" -->
+    </form>
+
+    <div class="col">
+      <table class="table table-striped table-responsive">
+        <thead>
+          <tr>
+            <th scope="col">Product Name</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Product Price</th>
+            <th scope="col">Total Price</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of currentBasketP">
+            <td scope="row">{{item.productName}}</td>
+            <td>{{item.quantity}}</td>
+            <td>{{item.productPrice}}</td>
+            <td>{{item.productPrice * item.quantity}}</td>
+          </tr>
+        </tbody>
+      </table>
+
+    </div>
+
+
+    <div class="col">
+      <table class="table table-striped table-responsive">
+        <thead>
+          <tr>
+            <th scope="col">Inventory Name</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Inventory Price</th>
+            <th scope="col">Total Price</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of currentBasketI">
+            <td scope="row">{{item.inventoryName}}</td>
+            <td>{{item.quantity}}</td>
+            <td>{{item.inventoryPrice}}</td>
+            <td>{{item.inventoryPrice * item.quantity}}</td>
+          </tr>
+        </tbody>
+      </table>
+
+
+
+
+    <div *ngIf="this.customerOrderService.progressBar">
+      <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    </div>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-raised-button color="primary" [disabled]="!addOrder.valid" (click)="confirmAdd()">Add</button>
+    <button mat-raised-button (click)="onNoClick()" tabindex="-1" color="accent">Cancel</button>
+  </div>
+</div>

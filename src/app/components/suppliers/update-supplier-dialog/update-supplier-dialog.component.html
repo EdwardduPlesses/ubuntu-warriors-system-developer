@@ -1,0 +1,64 @@
+<div class="container"><button tabindex="-1" class="close" mat-button (click)="onNoClick()">
+            <mat-icon aria-hidden="false">close</mat-icon>
+            </button>
+    <h2 mat-dialog-title>Update Supplier</h2>
+
+    <form class="mat-dialog-content" [formGroup]="updateSupplier" *ngFor="let supplier of supplierData">
+
+        <!-- Supplier Name -->
+        <div class="form">
+            <mat-form-field color="accent">
+                <input matInput #inputstate placeholder="Supplier Name" formControlName="supplierName"
+                    name="supplierName" required>
+                <mat-error *ngIf="updateSupplier.get('supplierName')!.hasError('required')"> Supplier Name is
+                    <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <!-- Supplier Phone Number -->
+        <div class="form">
+            <mat-form-field color="accent">
+                <input matInput #inputstate placeholder="Supplier Phone Number" formControlName="supplierPhoneNo"
+                    name="supplierPhoneNo" appPhoneMask required>
+                <mat-error *ngIf="updateSupplier.get('supplierPhoneNo')!.hasError('required')"> Supplier Phone Number is
+                    <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <!-- Supplier Email -->
+        <div class="form">
+            <mat-form-field color="accent">
+                <input matInput #inputstate placeholder="Supplier Email" formControlName="supplierEmail"
+                    name="supplierEmail" required>
+                <mat-error *ngIf="updateSupplier.get('supplierEmail')!.hasError('required')"> Supplier Email is
+                    <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <!-- Supplier Address -->
+        <div class="form">
+            <mat-form-field color="accent">
+                <input matInput #search placeholder="Supplier Address" formControlName="supplierAddress"
+                    name="supplierAddress" required>
+                <mat-error *ngIf="updateSupplier.get('supplierAddress')!.hasError('required')"> Supplier Address is
+                    <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
+        </div>
+    </form>
+
+    <div *ngIf="this.loading == true">
+        <p>Adding...</p>
+        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    </div>
+
+    <!-- Actions -->
+    <mat-dialog-actions>
+        <button mat-raised-button color="primary" [disabled]="!updateSupplier.valid"
+            (click)="confirmSupplierUpdate()">Update</button>
+        <button mat-raised-button color="accent" (click)="onNoClick()">Cancel</button>
+    </mat-dialog-actions>
+</div>

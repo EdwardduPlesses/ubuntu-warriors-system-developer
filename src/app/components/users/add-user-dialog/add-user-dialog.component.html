@@ -1,0 +1,50 @@
+<button tabindex="-1" class="close" mat-button (click)="onNoClick()">
+  <mat-icon aria-hidden="false">close</mat-icon>
+</button>
+<div class="container">
+  <h3 mat-dialog-title>Add New User</h3>
+
+  <form [formGroup]="addUser" class="mat-dialog-content">
+
+    <!--Textarea for demo purposes-->
+    <div class="form">
+      <mat-form-field color="accent">
+        <input matInput #input placeholder="Username" id="userName" formControlName="userName">
+      </mat-form-field>
+    </div>
+    <span *ngIf="addUser.controls['userName'].errors?.['required'] && addUser.controls['userName'].touched"
+      style="color: red;">Please enter username</span>
+    <div class="form">
+      <mat-form-field color="accent">
+        <input matInput #input placeholder="Email Address" id="email" formControlName="email">
+      </mat-form-field>
+    </div>
+    <span *ngIf="addUser.controls['email'].errors?.['required'] && addUser.controls['email'].touched"
+      style="color: red;">Please enter a valid email address</span>
+    <div class="form">
+      <mat-form-field color="accent">
+        <input matInput placeholder="Phone Number" id="phoneNumber" formControlName="phoneNumber" maxlength="14"
+          appPhoneMask required>
+      </mat-form-field>
+    </div>
+    <span *ngIf="addUser.controls['phoneNumber'].errors?.['required'] && addUser.controls['phoneNumber'].touched"
+      style="color: red;">Please enter phone number</span>
+
+    <div class="form">
+      <mat-form-field color="accent">
+        <mat-label>User Type</mat-label>
+        <mat-select id="userTypeID" formControlName="userTypeID">
+          <mat-option *ngFor="let type of usertypes" [value]="type.userTypeId">
+            {{type.userTypeName}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <!-- [type]="submit" -->
+  </form>
+  <div mat-dialog-actions>
+    <button mat-raised-button color="primary" [disabled]="!addUser.valid" (click)="confirmAdd()">Add</button>
+    <button mat-raised-button (click)="onNoClick()" tabindex="-1" color="accent">Cancel</button>
+  </div>
+</div>

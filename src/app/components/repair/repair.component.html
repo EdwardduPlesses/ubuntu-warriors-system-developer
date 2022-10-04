@@ -1,0 +1,117 @@
+<button mat-icon-button class="helpBtn" tabindex="-1" (click)="openRepairsHelp()">
+  <mat-icon aria-hidden="false" >help</mat-icon>
+</button>
+<div class="root">
+    <br>
+    <br>
+    <h1 class="title">Repairs</h1>
+    <br>
+  
+    <div class="board">
+  
+      <mat-card class="titleSub">
+        <div class="f-l">
+          <mat-form-field color="accent" class="repair-search-Field " appearance="fill">
+            <mat-label>Search Repair</mat-label>
+            <input id="searchInput" type="text" matInput [formControl]="repair_Search"
+              [matAutocomplete]="auto" onfocus="this.value=''" (focus)="focusFunction(true)"
+              (focusout)="focusFunction(false)">
+            <mat-autocomplete #auto="matAutocomplete">
+              <mat-option *ngFor="let option of filteredOptions | async" [value]="option"
+                (click)="optionClick(auto, option)" (keyup.enter)="optionClick(auto, option)">
+                {{option}}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+        </div>
+       
+        <div class="f-r">
+          <button mat-raised-button class="repair-calender-btn"  color="primary" routerLink="/calender">Calender</button>
+        </div>
+      </mat-card>
+      
+
+
+      <div class="spinner-pos" *ngIf="repairService.dataLoading == true ">
+        <div class="spinner"></div>
+      </div>
+      <div class="board-wrapper" *ngIf="repairService.dataLoading == false">
+  
+        <div class="board-columns" async="true" cdkDropListGroup>
+          <div class="board-column" *ngFor="let column of board.columns">
+  
+            <div class="column-title">
+              <div class="column-title-text">
+                {{ column.name }}
+              </div>
+              <div class="add-repair-button" *ngIf="column.name == 'New Repair' && this.authService.isAdminObs.getValue() === true">
+                <button mat-button (click)="addNewRepair()">
+                  <mat-icon class="add-repair-button-icon" aria-hidden="false">add</mat-icon>
+                </button>
+              </div>
+            </div>
+            <div class="tasks-container" cdkDropList [cdkDropListData]="column.tasks"
+              (cdkDropListDropped)="drop($event, column.tasks, column)">
+              <div id="{{repair.repairId}}" class="task" *ngFor="let repair of column.tasks" cdkDrag>
+  
+                <div class="repair-item">
+                  <p tabindex="-1" id="text{{repair.repairId}}" class="repair-card-text">{{ repair.repairName }} <span
+                      *ngIf="repair.repairStatus.repairStatusId == 5" class="emailSent">(Email Sent)</span></p>
+                  <p>{{repair.repairCustomer}}</p>
+                </div>
+  
+                <div class="repair-delete-button">
+                  
+                  <div  *ngIf="column.name == 'Waiting for collection'">
+                    <button mat-icon-button (click)="completeRepair(repair)">
+                      <mat-icon>done</mat-icon>
+                    </button>
+                  </div>
+                  <!-- repair.repairStatus.repairStatusId != 3 && repair.repairStatus.repairStatusId != 5 -->
+                  <div *ngIf="column.name != 'Waiting for collection'">
+                    <button  mat-icon-button [matMenuTriggerFor]="menu">
+                      <mat-icon>more_vert</mat-icon>
+                    </button>
+                    <mat-menu #menu="matMenu">
+                      <div *ngIf="this.authService.isAdminObs.getValue() === true">
+                        <button mat-menu-item (click)="assignRepair(repair)">
+                          <mat-icon>account_circle</mat-icon>
+                          <span>Assign</span>
+                        </button>
+                      </div>
+                      <button mat-menu-item (click)="viewRepair(repair)">
+                        <mat-icon>remove_red_eye</mat-icon>
+                        <span>View</span>
+                      </button>
+                      <button mat-menu-item (click)="updateRepair(repair)">
+                        <mat-icon>edit</mat-icon>
+                        <span>Edit</span>
+                      </button>
+                      <button mat-menu-item (click)="deleteRepair(repair)">
+                        <mat-icon>delete</mat-icon>
+                        <span>Delete</span>
+                      </button>
+                      <div *ngIf="column.name == 'Done'">
+                        <button mat-menu-item (click)="sendEmail(repair)">
+                          <mat-icon>send</mat-icon>
+                          <span>Send Email</span>
+
+                        </button>
+                      </div>
+                    </mat-menu>
+                  </div>
+  
+                </div>
+              </div>
+  
+            </div>
+  
+          </div>
+  
+        </div>
+  
+      </div>
+  
+    </div>
+  
+</div>

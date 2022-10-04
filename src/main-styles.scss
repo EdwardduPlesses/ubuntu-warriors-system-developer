@@ -1,0 +1,39 @@
+@import url('https://fonts.googleapis.com/css?family=Nunito:400,700|Lato:400,800,900');
+$family-sans-serif: "Nunito", sans-serif;
+$control-border-width: 2px;
+$input-border-color: transparent;
+$input-shadow: none;
+
+html {
+    background-image: url('./assets/background.svg');
+    background-size: cover;
+    overflow-y: auto !important;
+  
+}
+
+.cal-events {
+    display: none !important;
+}
+
+mat-sidenav-container {
+    height: 100%;
+  
+    mat-sidenav {
+      mat-nav-list {
+        .menu-item {
+          margin-left: 8px;
+        }
+  
+        .chevron-button {
+          transition: 300ms ease-in-out;
+          transform: rotate(0deg);
+        }
+  
+        .chevron-button.rotated {
+          transform: rotate(180deg);
+        }
+      }
+    }
+  }
+
+ 

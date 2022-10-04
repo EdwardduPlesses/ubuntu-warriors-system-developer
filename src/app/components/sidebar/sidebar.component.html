@@ -1,0 +1,46 @@
+<mat-sidenav-container>
+  <mat-sidenav mode="side" [(opened)]="opened">
+    <ul style="list-style-type:none;" class="nav">
+      <li>
+        <button routerLink="dashboard" routerLinkActive="active" mat-button>
+          <mat-icon class="nav-icons">show_chart</mat-icon> Dashboard
+        </button>
+      </li>
+      <li>
+        <button routerLink="sales" routerLinkActive="active" mat-button>
+          <mat-icon class="nav-icons">attach_money</mat-icon> Sales
+        </button>
+      </li>
+      <li>
+        <button routerLink="products" routerLinkActive="active" mat-button>
+          <mat-icon class="nav-icons">style</mat-icon> Products
+        </button>
+      </li>
+      <li>
+        <button routerLink="repairs" routerLinkActive="active" mat-button>
+          <mat-icon class="nav-icons">build</mat-icon> Repairs
+        </button>
+      </li>
+      <li>
+        <button routerLink="./inventory" routerLinkActive="active" mat-button>
+          <mat-icon class="nav-icons">assessment</mat-icon> Inventory
+        </button>
+      </li>
+      <li>
+        <button routerLink="./users" routerLinkActive="active" mat-button>
+          <mat-icon class="nav-icons">people</mat-icon> Users
+        </button>
+      </li>
+      <li>
+        <button routerLink="./customer" routerLinkActive="active" mat-button>
+          <mat-icon class="nav-icons">shopping_cart</mat-icon> Customers
+        </button>
+      </li>
+    </ul>
+    <div class="space-above-image"></div>
+    <img class="logo" src="assets\Images\UbuntuWarriorsLogo.png" alt="Logo">
+
+  </mat-sidenav>
+  <mat-sidenav-content>
+  </mat-sidenav-content>
+</mat-sidenav-container>

@@ -1,0 +1,152 @@
+
+    <mat-stepper #stepper>
+      <mat-step [stepControl]="firstFormGroup">
+        <!-- First Form -->
+        <form [formGroup]="firstFormGroup">
+          <ng-template matStepLabel>Inventory Items used on repair</ng-template>
+              
+              <div class="container"><button tabindex="-1" class="close" mat-button (click)="onNoClick()">
+            <mat-icon aria-hidden="false">close</mat-icon>
+            </button>
+                <div class="row">
+                  <div class="col">
+                    <div class="form">
+                      <mat-form-field color="accent" appearance="fill">
+                        <mat-label>Inventory Item</mat-label>
+                        <mat-select formControlName="inventoryItem">
+                          <mat-option *ngFor="let item of inventoryData" [value]="item.inventoryId" (click)="changeInputMax(item.inventoryId)">
+                            {{item.inventoryName}}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                    <div class="form">
+                      <mat-form-field color="accent">
+                        <input matInput type="number" value="0" max="{{inventoryMax}}"formControlName="itemQuantity" #input  placeholder="Quantity">
+                      </mat-form-field>
+                    </div>
+                    <mat-card-actions>
+                      <button mat-raised-button color="primary" [disabled]="!firstFormGroup.valid" (click)="addRepairInventoryLineItem()">Add Inventory Item</button>
+                    </mat-card-actions>
+                  </div>
+                  <div class="col">
+                    <table class="table table-bordered">
+                      <thead>
+                        <tr>
+                          <th >Inventory Name</th>
+                          <th >Quantity</th>
+                          <th >Item Price</th>
+                          <th >Total Price</th>
+                        </tr>
+                      </thead>
+                      <tfoot>
+                        <tr>
+                          <th >Total</th>
+                          <th></th>
+                          <th></th>
+                          <th>{{this.totalInventoryCost | currency:"R"}}</th>
+                        </tr>
+                      </tfoot>
+                      <tbody>
+                        <tr *ngFor="let item of repairInventoryLines">
+                          <td >{{item.inventory.inventoryName}}</td>
+                          <td>{{item.quantity}}</td>
+                          <td>{{item.inventory.inventoryPrice | currency:"R"}}</td>
+                          <td>{{item.inventory.inventoryPrice * item.quantity | currency:"R"}}</td>
+                        </tr>
+                      </tbody>
+                      
+                    </table>
+                  </div>
+                </div>
+                <mat-divider inset></mat-divider>
+
+                <div class="row">
+                  <div class="col">
+                    <div>
+                      <button mat-button matStepperNext>Next</button>
+                    </div>
+                  </div>
+                  <div class="col">
+
+                  </div>
+                </div>
+              </div>
+            
+        </form>
+      </mat-step>
+      <mat-step [stepControl]="secondFormGroup" errorMessage="Email not sent">
+        <!-- Second Form -->
+        <form [formGroup]="secondFormGroup">
+          <ng-template matStepLabel>Send notification email to customer</ng-template>
+          <div *ngFor="let repair of repairData">
+            <form mat-dialog-content>
+                <h1 mat-dialog-title>Send notification email to customer</h1>
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                      <thead>
+                        <tr>
+                          <th>Value</th>
+                          <th>Description</th>
+                        </tr>
+                      </thead>
+                        <tbody>
+                          <tr>
+                            <td>Repair</td>
+                            <td>{{repair.name}}</td>
+                          </tr>
+                          <tr>
+                            <td>Description</td>
+                            <td>{{repair.description}}</td>
+                          </tr>
+                          <tr>
+                            <td>Start Date</td>
+                            <td>{{repair.repairStartDate | date}}</td>
+                          </tr>
+                          <tr>
+                            <td>Deadline Date</td>
+                            <td>{{repair.repairDeadlineDate | date}}</td>
+                          </tr>
+                          <tr>
+                            <td>Customer</td>
+                            <td>{{repair.repairCustomer}}</td>
+                          </tr>
+                          <tr>
+                            <td>Rate</td>
+                            <td>{{repair.repairRateAmount}}</td>
+                          </tr>
+                          <tr>
+                            <td>Hours worked</td>
+                            <td>{{repair.repairRateHours}}</td>
+                          </tr>
+                          <tr>
+                            <td>Labour cost</td>
+                            <td>{{repair.repairCost | currency:"R"}}</td>
+                          </tr>
+                          <tr>
+                            <td>Inventory Cost</td>
+                            <td>{{this.totalInventoryCost | currency:"R"}}</td>
+                          </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>Total Cost</th>
+                                <th>{{repair.repairCost + this.totalInventoryCost | currency:"R"}}</th>
+                            </tr>
+                        </tfoot>
+                      </table>
+                </div>
+            </form>
+            <div *ngIf="repairService.emailSending == true">
+                <p>Sending...</p>
+                <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+            </div>
+                <mat-dialog-actions>
+                    <button mat-raised-button color="primary" (click)="sendEmail(repair)" [disabled]="repairService.emailSending == true">Send</button>
+                    <button mat-raised-button color="accent" (click)="onNoClick()" tabindex="-1" [disabled]="repairService.emailSending == true">Cancel</button>
+                </mat-dialog-actions>
+        </div>
+        </form>
+      </mat-step>
+    </mat-stepper>
+    

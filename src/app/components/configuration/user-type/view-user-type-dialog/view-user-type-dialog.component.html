@@ -1,0 +1,27 @@
+<button tabindex="-1" class="close" mat-button (click)="onNoClick()">
+  <mat-icon aria-hidden="false">close</mat-icon>
+  </button>
+<div class="container">
+    <h3 mat-dialog-title>View User Type</h3>
+  
+    <form class="mat-dialog-content" #formControl="ngForm">
+  
+      <div class="form">
+        <mat-form-field color="accent">
+          <mat-label>User Type</mat-label>
+          <input matInput placeholder="User Type" value="Admin" readonly>
+        </mat-form-field>
+      </div>
+
+      <div class="form">
+        <mat-form-field color="accent">
+          <mat-label>Name</mat-label>
+          <input matInput placeholder="User ID" value="1334" readonly>
+        </mat-form-field>
+      </div>
+
+      <div mat-dialog-actions>
+        <button mat-raised-button color="accent" (click)="closeViewType()">Back</button>
+      </div>
+      <!-- [type]="submit" -->
+    </form>

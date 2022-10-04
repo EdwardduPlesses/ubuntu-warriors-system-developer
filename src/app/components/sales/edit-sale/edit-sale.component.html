@@ -1,0 +1,59 @@
+<div class="container"><button tabindex="-1" class="close" mat-button (click)="onNoClick()">
+    <mat-icon aria-hidden="false">close</mat-icon>
+    </button>
+<h2 mat-dialog-title>Sale Details</h2>
+
+<form class="mat-dialog-content" [formGroup]="editSaleStatus " *ngFor="let sale of salesData">
+
+<!-- Customer Name -->
+<div class="form">
+    <mat-form-field color="accent">
+        <mat-label>Customer Name</mat-label>
+        <input matInput placeholder="Customer Name" value="{{sale.customerName}}" readonly>
+    </mat-form-field>
+</div>
+
+<!-- Sale Status -->
+<div class="form">
+    <mat-form-field color="accent" appearance="fill">
+        <mat-label>Sale Status</mat-label>
+        <mat-select formControlName="saleStatusId">
+            <mat-option *ngFor="let sale of salestatus" [value]="sale.saleStatusId">{{sale.saleStatusName}}
+            </mat-option>
+        </mat-select>
+        <mat-error *ngIf="editSaleStatus.get('saleStatusId')!.hasError('required')"> Sale Status is
+            <strong>required</strong></mat-error>
+    </mat-form-field>
+</div>
+
+<div class="form">
+    <mat-form-field color="accent">
+        <mat-label>Sale Receipt</mat-label>
+        <input matInput placeholder="Sale Receipt" value="{{sale.saleReceipt}}">
+    </mat-form-field>
+</div>
+
+<!-- Sale Amount -->
+<div class="form">
+    <mat-form-field color="accent">
+        <mat-label>Sale Amount</mat-label>
+        <input matInput placeholder="Sale Amount" value="{{sale.saleAmount|currency:'R'}}" readonly>
+    </mat-form-field>
+</div>
+
+<!-- Sale Date -->
+<div class="form">
+    <mat-form-field color="accent">
+        <mat-label>Sale Date</mat-label>
+        <input matInput placeholder="Sale Date" value="{{sale.saleDate|date}}" readonly>
+    </mat-form-field>
+</div>
+</form>
+
+<!-- Actions -->
+<mat-dialog-actions>
+<button mat-raised-button color="primary" [disabled]="!editSaleStatus.valid"
+    (click)="confirmEditSaleStatus()">Update</button>
+<button mat-raised-button color="accent" (click)="onNoClick()">Cancel</button>
+</mat-dialog-actions>
+</div>

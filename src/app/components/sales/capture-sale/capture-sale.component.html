@@ -1,0 +1,147 @@
+<button tabindex="-1" class="close" mat-button (click)="onNoClick()">
+  <mat-icon aria-hidden="false">close</mat-icon>
+</button>
+<div class="container">
+  
+  <h3 mat-dialog-title>Capture New Sale</h3>
+  <div class="row">
+
+    <form [formGroup]="captureSale" class="mat-dialog-content">
+      <div class="container">
+        <div class="row">
+          <div class="col">
+            <div class="form">
+              <mat-form-field color="accent" appearance="fill">
+                <mat-label>Customer Name</mat-label>
+                <mat-select formControlName="customerId">
+                  <mat-option *ngFor="let customer of customers" [value]="customer.customerId">
+                    {{customer.customerName}} {{customer.customerSurname}}
+                  </mat-option>
+                </mat-select>
+                <mat-error *ngIf="captureSale.get('customerId')!.hasError('required')"> Customer is
+                  <strong>required</strong></mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col">
+            <mat-card class="products-card">
+              <mat-card-subtitle>Add products to the sale</mat-card-subtitle>
+              <mat-card-title>Products</mat-card-title>
+              <mat-card-content>
+                <form [formGroup]="addOrderLine">
+                  <div class="form">
+                    <mat-form-field color="accent" appearance="fill">
+                      <mat-select formControlName="productId">
+                        <mat-option *ngFor="let product of products" [value]="product.productId">
+                          {{product.productName}}
+                        </mat-option>
+                      </mat-select>
+                      <mat-error *ngIf="addOrderLine.get('productId')!.hasError('required')"> Product is
+                        <strong>required</strong></mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="form">
+                    <mat-form-field color="accent">
+                      <input matInput type="number" formControlName="quantity" #input min="0" placeholder="Quantity">
+                      <mat-error *ngIf="addOrderLine.get('quantity')!.hasError('required')"> Quantity is
+                        <strong>required</strong></mat-error>
+                    </mat-form-field>
+                  </div>
+                </form>
+              </mat-card-content>
+              <mat-divider inset></mat-divider>
+              <mat-card-actions>
+                <button mat-raised-button color="primary" [disabled]="!addOrderLine.valid" (click)="saveOrderLine()">Add
+                  To Cart</button>
+                <button mat-raised-button (click)="undoOrderLine()" tabindex="-1" color="accent">Undo</button>
+              </mat-card-actions>
+            </mat-card>
+            <br>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <div class="form">
+            <mat-form-field color="accent">
+              <input matInput type="number" placeholder="Sale Amount" id="saleAmount" min="0" formControlName="saleAmount" required>
+              <mat-error *ngIf="captureSale.get('saleAmount')!.hasError('required')"> Sale Amount is
+                <strong>required</strong></mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="col">
+          <div class="form">
+            <mat-form-field color="accent">
+              <input matInput type="date" placeholder="Date of Sale" id="saleDate" formControlName="saleDate" required>
+              <mat-error *ngIf="captureSale.get('saleDate')!.hasError('required')"> Sale Date is
+                <strong>required</strong></mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="col">
+          <div class="form">
+            <mat-form-field color="accent">
+              <mat-label>Sale Status</mat-label>
+              <mat-select formControlName="saleStatusId">
+                <mat-option *ngFor="let sale of saleStatus" [value]="sale.saleStatusId">{{sale.saleStatusName}}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="captureSale.get('saleStatusId')!.hasError('required')"> Sale Status is
+                <strong>required</strong></mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="col">
+          <div class="form">
+            <mat-form-field color="accent">
+              <input matInput type="string" placeholder="Sale Receipt" id="saleReceipt" formControlName="saleReceipt" required>
+              <mat-error *ngIf="captureSale.get('saleReceipt')!.hasError('required')"> Sale Receipt is
+                <strong>required</strong></mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+      </div>
+    </form>
+
+    <div class="col">
+      <table class="table table-striped table-responsive">
+        <thead>
+          <tr>
+            <th scope="col">Product Name</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Product Price</th>
+            <th scope="col">Total Price</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of currentBasket">
+            <td scope="row">{{item.productName}}</td>
+            <td>{{item.quantity}}</td>
+            <td>{{item.productPrice|currency: 'R'}}</td>
+            <td>{{item.productPrice * item.quantity|currency: 'R'}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div *ngIf="this.customerOrderService.progressBar">
+      <mat-progress-bar mode="query"></mat-progress-bar>
+    </div>
+  </div>
+
+  <!-- Actions -->
+  <div mat-dialog-actions>
+    <button mat-raised-button color="primary" [disabled]="!captureSale.valid"
+      (click)="confirmCaptureSale()">Add</button>
+    <button mat-raised-button color="accent" (click)="onNoClick()">Cancel</button>
+  </div>
+</div>

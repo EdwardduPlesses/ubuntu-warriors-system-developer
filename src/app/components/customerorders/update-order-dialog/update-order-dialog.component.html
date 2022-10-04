@@ -1,0 +1,41 @@
+<button tabindex="-1" class="close" mat-button (click)="onNoClick()">
+  <mat-icon aria-hidden="false">close</mat-icon>
+  </button>
+<div class="container">
+    <h3 mat-dialog-title>Update Order Status</h3>
+  
+    <form [formGroup]="updateOrder" class="mat-dialog-content">
+  
+      <!--Textarea for demo purposes-->
+      <div class="form">
+        <mat-form-field color="accent">
+          <input matInput [readonly]="true" type="number" #input  placeholder="Order Amount" id="orderAmount" formControlName="orderAmount">
+        </mat-form-field>
+      </div>
+  
+      <!--Contains mat-hint for characters count and has maxLengt set-->
+      <div class="form">
+        <mat-form-field color="accent">
+          <input matInput [readonly]="true" #inputstate  placeholder="Order Date Placed" id="orderDatePlaced" formControlName="orderDatePlaced" required >
+        </mat-form-field>
+      </div>
+ 
+      <div class="form">
+        <mat-form-field color="accent">
+          <mat-label>Order Status</mat-label>
+          <select matNativeControl id="orderStatus" formControlName="orderStatus" placeholder="{{this.orderStatus}}" required>
+            <option value="Ready For Collection">Ready For Collection</option>
+            <option value="Cancelled">Cancelled</option>
+          </select>
+        </mat-form-field>
+      </div>
+      <span *ngIf="updateOrder.controls['orderStatus'].errors?.['required'] && updateOrder.controls['orderStatus'].touched" style="color: red;">Please enter select an order status</span>
+  
+      <!-- [type]="submit" -->
+    </form>
+    <div mat-dialog-actions>
+      <button mat-raised-button color="primary" [disabled]="!updateOrder.valid" (click)="confirmUpdate()">Update</button>
+      <button mat-raised-button (click)="onNoClick()" tabindex="-1" color="accent">Cancel</button>
+    </div>
+  </div>
+  

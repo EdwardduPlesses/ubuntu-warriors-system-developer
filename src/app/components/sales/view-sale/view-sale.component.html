@@ -1,0 +1,79 @@
+<div class="container"><button tabindex="-1" class="close" mat-button (click)="onNoClick()">
+            <mat-icon aria-hidden="false">close</mat-icon>
+            </button>
+    <h2 mat-dialog-title>Sale Details</h2>
+
+    <form class="mat-dialog-content" #formControl="ngForm" *ngFor="let sale of salesData">
+
+        <!-- Customer Name -->
+        <div class="form">
+            <mat-form-field color="accent">
+                <mat-label>Customer Name</mat-label>
+                <input matInput placeholder="Customer Name" value='{{sale.customerName}} {{sale.customerSurname}}'
+                    readonly>
+            </mat-form-field>
+        </div>
+
+        <!-- Sake Status -->
+        <div class="form">
+            <mat-form-field color="accent">
+                <mat-label>Sale Status</mat-label>
+                <input matInput placeholder="Sale Status" value="{{sale.saleStatusName}}" readonly>
+            </mat-form-field>
+        </div>
+
+        <div class="form">
+            <mat-form-field color="accent">
+                <mat-label>Sale Receipt</mat-label>
+                <input matInput placeholder="Sale Receipt" value="{{sale.saleReceipt}}" readonly>
+            </mat-form-field>
+        </div>
+
+        <!-- Sale Amount -->
+        <div class="form">
+            <mat-form-field color="accent">
+                <mat-label>Sale Amount</mat-label>
+                <input matInput placeholder="Sale Amount" value="{{sale.saleAmount|currency:'R'}}" readonly>
+            </mat-form-field>
+        </div>
+
+        <!-- Sale Date -->
+        <div class="form">
+            <mat-form-field color="accent">
+                <mat-label>Sale Date</mat-label>
+                <input matInput placeholder="Sale Date" value="{{sale.saleDate|date}}" readonly>
+            </mat-form-field>
+        </div>
+    </form>
+
+    <!-- Products Ordered -->
+    <h2>Products Ordered</h2>
+
+    <mat-dialog-content *ngFor="let orderline of orderlines">
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+              <tr>
+                <th scope="col">Product Name</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Product Price</th>
+                <th scope="col">Total Price</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let orderline of orderlines">
+                <td scope="row">{{orderline.product.productName}}</td>
+                <td>{{orderline.quantity}}</td>
+                <td>{{orderline.product.productPrice | currency: 'R'}}</td>
+                <td>{{(orderline.product.productPrice * orderline.quantity) | currency: 'R'}}</td>
+              </tr>
+            </tbody>
+          </table>
+    </div>
+</mat-dialog-content>
+
+    <!-- Actions -->
+    <mat-dialog-actions>
+        <button mat-raised-button color="accent" (click)="onNoClick()">Back</button>
+    </mat-dialog-actions>
+</div>

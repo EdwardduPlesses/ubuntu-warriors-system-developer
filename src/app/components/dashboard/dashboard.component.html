@@ -1,0 +1,383 @@
+<div *ngIf="this.authService.isAdminObs.getValue() === true" class="container">
+  <br>
+  <br>
+  <h1 class="title">Dashboard</h1>
+  <br>
+  <div *ngIf="chartsLoaded">
+
+    <mat-card class="graphs">
+      <div fxLayout="row wrap" fxLayoutGap="16px grid">
+        <div fxFlex="10%" fxFlex.xs="0%" fxFlex.sm="0%"></div>
+        <div fxFlex="33.33%" fxFlex.xs="100%" fxFlex.sm="40%">
+          <canvas id="pieCharts" baseChart [data]="productStatusData" [type]="'pie'"
+            [options]="productStatusChartOptions">
+          </canvas>
+        </div>
+        <div fxFlex="10%" fxFlex.xs="0%" fxFlex.sm="0%">
+        </div>
+
+        <div fxFlex="33.33%" fxFlex.xs="100%" fxFlex.sm="40%">
+          <canvas baseChart [data]="productTypeData" [type]="'pie'" [options]="productTypeChartOptions">
+          </canvas>
+        </div>
+        <div fxFlex="10%" fxFlex.xs="0%" fxFlex.sm="0%"></div>
+      </div>
+    </mat-card>
+
+    <mat-card class="dash">
+      <mat-form-field color="accent" appearance="fill" style="width:30%">
+        <mat-label>Select Report</mat-label>
+        <mat-select #selectedReport [value]="'products'">
+          <mat-option *ngFor="let report of reports" [value]="report.value">
+            {{report.viewValue}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <div *ngIf="selectedReport.value == 'products'">
+        <mat-form-field color="accent" appearance="fill" style="width:20%;">
+          <mat-label>Filter by quantity</mat-label>
+          <mat-select #selectedFilter [value]="'All'">
+            <mat-option (click)="filterProduct(filter)" *ngFor="let filter of productsFilter" [value]="filter">
+              {{filter}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div *ngIf="selectedReport.value == 'sales'">
+        <mat-form-field color="accent" appearance="fill" style="width:20%;">
+          <mat-label>Filter by status</mat-label>
+          <mat-select #selectedFilter [value]="'All'">
+            <mat-option (click)="filterSale(filter)" *ngFor="let filter of salesFilter" [value]="filter">
+              {{filter}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div *ngIf="selectedReport.value == 'customers'">
+        <mat-form-field color="accent" appearance="fill" style="width:20%;">
+          <mat-label>Filter by location</mat-label>
+          <mat-select #selectedFilter [value]="'All'">
+            <mat-option (click)="filterCustomer(filter)" *ngFor="let filter of customersFilter" [value]="filter">
+              {{filter}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div *ngIf="selectedReport.value == 'repairs'">
+        <mat-form-field color="accent" appearance="fill" style="width:20%;">
+          <mat-label>Filter by status</mat-label>
+          <mat-select #selectedFilter [value]="'All'">
+            <mat-option (click)="filterRepair(filter)" *ngFor="let filter of repairsFilter" [value]="filter">
+              {{filter}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="export-container" *ngIf="selectedReport.value">
+        <button mat-raised-button color="accent" (click)="exportTable(selectedReport)">Download
+          {{selectedReport.value}} Report</button>
+      </div>
+
+      <div *ngIf="selectedReport.value == 'products'">
+        <div>
+          <h2 style="text-align: center;">Products Report</h2>
+
+          <table mat-table [dataSource]="productdataSource" matSort id="products" appearance="fill"
+            class="mat-elevation-z8">
+
+            <ng-container matColumnDef="Name">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+              <td mat-cell *matCellDef="let product"> {{product.productName}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Price">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Price </th>
+              <td mat-cell *matCellDef="let product"> {{product.productPrice | currency:"R"}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Quantity">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Quantity </th>
+              <td mat-cell *matCellDef="let product"> {{product.productQuantity}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Status">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+              <td mat-cell *matCellDef="let product"> {{product.productStatus}} </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="productdisplayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: productdisplayedColumns;"></tr>
+
+          </table>
+          <mat-paginator [pageSizeOptions]="[5, 10, 20]" color="accent" showFirstLastButtons class="mat-elevation-z8">
+          </mat-paginator>
+
+        </div>
+      </div>
+
+      <div *ngIf="selectedReport.value == 'sales'">
+        <div>
+          <h2 style="text-align: center;">Sales Report</h2>
+          <table mat-table [dataSource]="saledataSource" id="sales" matSort appearance="fill" class="mat-elevation-z8">
+
+            <ng-container matColumnDef="Customer">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Customer </th>
+              <td mat-cell *matCellDef="let sale"> {{sale.customerName + ' ' + sale.customerSurname}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Amount">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Amount </th>
+              <td mat-cell *matCellDef="let sale"> {{sale.saleAmount | currency:"R"}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Date">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Date </th>
+              <td mat-cell *matCellDef="let sale"> {{sale.saleDate | date}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Status">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+              <td mat-cell *matCellDef="let sale"> {{sale.saleStatus}} </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="saledisplayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: saledisplayedColumns;"></tr>
+
+          </table>
+          <mat-paginator [pageSizeOptions]="[5, 10, 20]" color="accent" showFirstLastButtons class="mat-elevation-z8">
+          </mat-paginator>
+
+        </div>
+      </div>
+
+      <div *ngIf="selectedReport.value == 'customers'">
+        <div>
+          <h2 style="text-align: center;">Customer Report</h2>
+          <table mat-table [dataSource]="customerdataSource" id="customers" matSort appearance="fill"
+            class="mat-elevation-z8">
+
+            <ng-container matColumnDef="Title">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Title </th>
+              <td mat-cell *matCellDef="let customer"> {{customer.customerTitle}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Name">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+              <td mat-cell *matCellDef="let customer"> {{customer.customerName + ' ' + customer.customerSurname}}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Suburb">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Suburb </th>
+              <td mat-cell *matCellDef="let customer"> {{customer.customerSuburb}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="City">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> City </th>
+              <td mat-cell *matCellDef="let customer"> {{customer.customerCity}} </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="customerdisplayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: customerdisplayedColumns;"></tr>
+
+          </table>
+          <mat-paginator [pageSizeOptions]="[5, 10, 20]" color="accent" showFirstLastButtons class="mat-elevation-z8">
+          </mat-paginator>
+        </div>
+      </div>
+
+      <div *ngIf="selectedReport.value == 'suppliers'">
+        <div>
+          <h2 style="text-align: center;">Supplier Report</h2>
+          <table mat-table [dataSource]="supplierdatasource" id="suppliers" matSort appearance="fill">
+            <div class="mat-elevation-z8">
+
+              <ng-container matColumnDef="Name">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+                <td mat-cell *matCellDef="let supplier"> {{supplier?.supplierName}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="Contact">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Phone Number </th>
+                <td mat-cell *matCellDef="let supplier"> {{supplier?.supplierPhoneNo}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="Email">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Email </th>
+                <td mat-cell *matCellDef="let supplier"> {{supplier?.supplierEmail}} </td>
+              </ng-container>
+
+
+              <ng-container matColumnDef="Address">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Address </th>
+                <td mat-cell *matCellDef="let supplier"> {{supplier?.address?.streetName}} </td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="supplierdisplayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: supplierdisplayedColumns;"></tr>
+
+            </div>
+          </table>
+          <mat-paginator [pageSizeOptions]="[10, 20]" color="accent" showFirstLastButtons class="mat-elevation-z8">
+          </mat-paginator>
+        </div>
+      </div>
+
+      <div *ngIf="selectedReport.value == 'inventory'">
+        <div>
+          <h2 style="text-align: center;">Inventory Report</h2>
+
+          <table mat-table [dataSource]="inventorydatasource" id="inventory" matSort appearance="fill">
+
+            <ng-container matColumnDef="Name">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+              <td mat-cell *matCellDef="let inv"> {{inv?.inventoryName}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Description">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Description </th>
+              <td mat-cell *matCellDef="let inv"> {{inv?.inventoryDescription}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Quantity">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Quantity </th>
+              <td mat-cell *matCellDef="let inv"> {{inv?.inventoryQuantity}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Status">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+              <td mat-cell *matCellDef="let inv"> {{inv?.inventoryStatus?.inventoryStatusName}} </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="inventorydisplayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: inventorydisplayedColumns;"></tr>
+
+          </table>
+          <mat-paginator [pageSizeOptions]="[10, 20]" color="accent" showFirstLastButtons class="mat-elevation-z8">
+          </mat-paginator>
+        </div>
+      </div>
+
+      <div *ngIf="selectedReport.value == 'salesByCustomer'">
+        <div>
+          <h2 style="text-align: center;">Total Sales by Customers Report</h2>
+
+          <table mat-table [dataSource]="salesbyCustomerDataSource" id="salesByCustomer" matSort appearance="fill">
+
+            <ng-container matColumnDef="Customer">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Customer </th>
+              <td mat-cell *matCellDef="let sales"> {{sales?.customer.customerName + ' ' +
+                sales?.customer.customerSurname}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Customer Email">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Customer Email </th>
+              <td mat-cell *matCellDef="let sales"> {{sales?.customer.customerEmail}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Total Sales">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Total Sales </th>
+              <td mat-cell *matCellDef="let sales"> {{sales?.saleAmount |currency:'R'}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Sales Status">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Sales Status </th>
+              <td mat-cell *matCellDef="let sales"> {{sales?.saleStatus.saleStatusName}} </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="salesbyCustomerdisplayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: salesbyCustomerdisplayedColumns;"></tr>
+
+          </table>
+          <mat-paginator [pageSizeOptions]="[10, 20]" color="accent" showFirstLastButtons class="mat-elevation-z8">
+          </mat-paginator>
+        </div>
+      </div>
+
+      <div *ngIf="selectedReport.value == 'productsbyType'">
+        <div>
+          <h2 style="text-align: center;">Total Products by Category Report</h2>
+
+          <table mat-table [dataSource]="productsByTypeDataSource" id="productsbyType" matSort appearance="fill">
+
+            <ng-container matColumnDef="Category">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Category </th>
+              <td mat-cell *matCellDef="let category"> {{category?.key}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Total Products in Category">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Total Quantity of Category </th>
+              <td mat-cell *matCellDef="let category"> {{category?.productQuantity}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Number of Products">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Number of Products </th>
+              <td mat-cell *matCellDef="let category"> {{category?.productName.length}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Percentage Total">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Percentage Total </th>
+              <td mat-cell *matCellDef="let category"> {{category?.percentage| percent:'1.2'}} </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="productsByTypedisplayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: productsByTypedisplayedColumns;"></tr>
+
+          </table>
+          <mat-paginator [pageSizeOptions]="[10, 20]" color="accent" showFirstLastButtons class="mat-elevation-z8">
+          </mat-paginator>
+        </div>
+      </div>
+
+      <div *ngIf="selectedReport.value == 'repairs'">
+        <div>
+          <h2 style="text-align: center;">Repairs Report</h2>
+          <table mat-table [dataSource]="repairdataSource" id="repairs" matSort appearance="fill"
+            class="mat-elevation-z8">
+
+            <ng-container matColumnDef="Name">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+              <td mat-cell *matCellDef="let repair"> {{repair.repairName}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Status">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+              <td mat-cell *matCellDef="let repair"> {{repair.repairStatus}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Customer">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Customer </th>
+              <td mat-cell *matCellDef="let repair"> {{repair.customerName + ' ' + repair.customerSurname}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Cost">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Cost </th>
+              <td mat-cell *matCellDef="let repair"> {{repair.repairCost | currency:"R"}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Start Date">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Start Date </th>
+              <td mat-cell *matCellDef="let repair"> {{repair.repairStartDate | date}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Deadline">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Deadline </th>
+              <td mat-cell *matCellDef="let repair"> {{repair.repairDeadline | date}} </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="repairdisplayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: repairdisplayedColumns;"></tr>
+
+          </table>
+          <mat-paginator [pageSizeOptions]="[5, 10, 20]" color="accent" showFirstLastButtons class="mat-elevation-z8">
+          </mat-paginator>
+        </div>
+      </div>
+    </mat-card>
+  </div>
+  <br>

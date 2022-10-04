@@ -1,0 +1,69 @@
+<div class="container"><button tabindex="-1" class="close" mat-button (click)="onNoClick()">
+            <mat-icon aria-hidden="false">close</mat-icon>
+            </button>
+    <h3 mat-dialog-title>View Customer</h3>
+  
+    <form class="mat-dialog-content"  [formGroup]="viewCustomerFormControl" *ngFor="let customer of customerData">
+  
+        <!-- Add New Customer TITLE -->
+      <div class="form">
+        <mat-form-field color="accent" >
+          <input matInput  placeholder="Title"  name="title" formControlName="Title_ID"   readonly >
+        </mat-form-field>
+      </div>
+
+        <!-- Add New Customer NAME -->
+      <div class="form">
+        <mat-form-field color="accent" >
+          <input matInput  placeholder="Name"  name="name" formControlName = "Customer_Name"   readonly >
+        </mat-form-field>
+      </div>
+  
+      <!-- Add New Customer SURNAME -->
+      <div class="form">
+        <mat-form-field color="accent">
+          <input matInput  placeholder="Surname"  name="surname" formControlName = "Customer_Surname"  readonly >
+        </mat-form-field>
+      </div>
+  
+      <!-- Add New Customer ADDRESS -->
+      <div class="form">
+        <mat-form-field color="accent">
+          <input matInput placeholder="Address"  name="address" formControlName = "Address_ID"  readonly>
+        </mat-form-field>
+      </div>
+  
+      <!-- Add New Customer COMPETENCY -->
+      <div class="form">
+        <mat-form-field color="accent">
+          <input matInput placeholder="Competency"  name="competency" formControlName = "CustomerCompetencyType"  readonly>
+        </mat-form-field>
+      </div>
+  
+      <!-- Add New Customer PHONE NUMBER -->
+      <div class="form">
+        <mat-form-field color="accent">
+          <input matInput placeholder="Phone Number" name="phoneNo" formControlName = "Customer_PhoneNo"  readonly>
+        </mat-form-field>
+      </div>
+
+      <!-- Add New Customer ID NUMBER -->
+      <div class="form">
+        <mat-form-field color="accent">
+          <input matInput placeholder="ID Number" name="idNumber" formControlName = "Customer_IDNumber"  readonly>
+        </mat-form-field>
+      </div>
+      <!-- email Column -->
+      <div class="form">
+        <mat-form-field color="accent">
+          <input matInput placeholder="Email" name="Customer_Email" formControlName = "Customer_Email"  readonly>
+        </mat-form-field>
+      </div>
+    </form>
+    <mat-dialog-actions>
+      <button mat-raised-button color="accent"  (click)="onNoClick()" tabindex="-1">Back</button>
+    </mat-dialog-actions>
+  </div>
+
+
+

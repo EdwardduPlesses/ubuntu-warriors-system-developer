@@ -1,0 +1,107 @@
+<button tabindex="-1" class="close" mat-button (click)="onNoClick()">
+  <mat-icon aria-hidden="false">close</mat-icon>
+  </button>
+<div class="container">
+  <h3 mat-dialog-title>View Order</h3>
+
+  <form [formGroup]="viewOrder" class="mat-dialog-content">
+      <div class="form">
+          <mat-form-field color="accent">
+            <input matInput [readonly]="true" type="number" #input  placeholder="Order ID" id="orderId" formControlName="orderId">
+          </mat-form-field>
+        </div>
+
+        <div class="form">
+          <mat-form-field color="accent">
+            <input matInput [readonly]="true" #inputstate  placeholder="Supplier Name" id="supplierName" formControlName="supplierName" required >
+          </mat-form-field>
+        </div>
+
+    
+    <!--Textarea for demo purposes-->
+    <div class="form">
+      <mat-form-field color="accent">
+        <input matInput [readonly]="true" type="number" #input  placeholder="Order Amount" id="orderAmount" formControlName="orderAmount">
+      </mat-form-field>
+    </div>
+
+    <!--Contains mat-hint for characters count and has maxLengt set-->
+    <div class="form">
+      <mat-form-field color="accent">
+        <input matInput [readonly]="true" #inputstate  placeholder="Order Date Placed" id="supplierOrderDatePlaced" formControlName="supplierOrderDatePlaced" required >
+      </mat-form-field>
+    </div>
+
+    <div class="form">
+      <mat-form-field color="accent">
+        <input matInput [readonly]="true" #inputstate  placeholder="Order Date Received" id="supplierOrderDateReceived" formControlName="supplierOrderDateReceived" required >
+      </mat-form-field>
+    </div>
+
+    <div class="form">
+      <mat-form-field color="accent">
+        <input matInput [readonly]="true" #inputstate  placeholder="Order Status" id="supplierOrderStatus" formControlName="supplierOrderStatus" required >
+      </mat-form-field>
+    </div>
+
+    <div class="col">
+      <table class="table table-striped table-responsive">
+        <thead>
+          <tr>
+            <th scope="col">Product Name</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Product Price</th>
+            <th scope="col">Total Price</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let orderline of orderPlines">
+            <td scope="row">{{orderline.product.productName}}</td>
+            <td>{{orderline.quantity}}</td>
+            <td>{{orderline.product.productPrice}}</td>
+            <td>{{orderline.product.productPrice * orderline.quantity}}</td>
+          </tr>
+        </tbody>
+      </table>
+      
+    </div>
+  
+  
+  <div class="col">
+    <table class="table table-striped table-responsive">
+      <thead>
+        <tr>
+          <th scope="col">Inventory Name</th>
+          <th scope="col">Quantity</th>
+          <th scope="col">Inventory Price</th>
+          <th scope="col">Total Price</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let orderline of orderIlines">
+          <td scope="row">{{orderline.inventory.inventoryName}}</td>
+          <td>{{orderline.quantity}}</td>
+          <td>{{orderline.inventory.inventoryPrice}}</td>
+          <td>{{orderline.inventory.inventoryPrice * orderline.quantity}}</td>
+        </tr>
+      </tbody>
+    </table>
+    
+  </div>
+
+<!-- <h2>Products Ordered</h2>
+<ul>
+<li *ngFor="let orderline of orderPlines">{{ orderline.quantity + "x" + " " + orderline.product.productName + " " + "R" + orderline.product.productPrice }}</li>
+</ul>
+
+<h2>Inventory Items Ordered</h2>
+<ul>
+<li *ngFor="let orderline of orderIlines">{{ orderline.quantity + "x" + " " + orderline.inventory.inventoryName + " " + "R" + orderline.inventory.inventoryPrice }}</li>
+</ul> -->
+
+    <div mat-dialog-actions>
+      <button mat-raised-button color="accent" (click)="onNoClick()" tabindex="-1" >Close</button>
+    </div>
+    <!-- [type]="submit" -->
+  </form>
+</div>

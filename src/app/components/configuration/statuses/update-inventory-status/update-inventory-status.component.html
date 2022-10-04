@@ -1,0 +1,34 @@
+<div class="container">
+    <h3 mat-dialog-title>Update Inventory Status</h3>
+  
+    <form [formGroup]="updateStatusForm" class="mat-dialog-content">
+  
+      <!--Textarea for demo purposes-->
+      <div class="form">
+        <mat-form-field color="accent">
+          <input matInput [readonly]="true" type="number" #input  placeholder="ID" id="inventoryStatusId" formControlName="inventoryStatusId">
+        </mat-form-field>
+      </div>
+  
+      <!--Contains mat-hint for characters count and has maxLengt set-->
+      <div class="form">
+        <mat-form-field color="accent">
+          <input matInput [readonly]="true" #inputstate  placeholder="Name" id="inventoryStatusName" formControlName="inventoryStatusName">
+        </mat-form-field>
+      </div>
+ 
+      <div class="form">
+        <mat-form-field color="accent">
+          <input matInput #inputstate  placeholder="Quantity" id="quantity" formControlName="quantity" required >
+        </mat-form-field>
+      </div>
+      <span *ngIf="updateStatusForm.controls['quantity'].errors?.['required'] && updateStatusForm.controls['quantity'].touched" style="color: red;">Please enter select an order status</span>
+  
+      <!-- [type]="submit" -->
+    </form>
+    <div mat-dialog-actions>
+      <button mat-raised-button color="primary" [disabled]="!updateStatusForm.valid" (click)="confirmUpdate()">Update</button>
+      <button mat-raised-button (click)="onNoClick()" tabindex="-1" color="accent">Cancel</button>
+    </div>
+  </div>
+  

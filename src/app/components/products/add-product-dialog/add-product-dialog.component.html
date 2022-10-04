@@ -1,0 +1,51 @@
+<div class="container"><button tabindex="-1" class="close" mat-button (click)="onNoClick()">
+            <mat-icon aria-hidden="false">close</mat-icon>
+            </button>
+    <h3 mat-dialog-title class="containerHeading">Add New Product</h3>
+  
+    <form [formGroup]="addProduct" class="mat-dialog-content">
+  
+      <!--Textarea for demo purposes-->
+      <div class="form">
+        <mat-form-field color="accent">
+          <input matInput #input  type="text" placeholder="Name" id="productName" formControlName="productName">
+        </mat-form-field>
+      </div>
+      <span *ngIf="addProduct.controls['productName'].errors?.['required'] && addProduct.controls['productName'].touched" style="color: #d32f2f;">Please enter valid name</span>
+
+  
+      <!--Contains mat-hint for characters count and has maxLengt set-->
+      <div class="form">
+        <mat-form-field color="accent">
+          <input matInput #inputstate  type="number" placeholder="Price" id="productPrice" formControlName="productPrice" required >
+        </mat-form-field>
+      </div>
+      <span *ngIf="addProduct.controls['productPrice'].errors?.['required'] && addProduct.controls['productPrice'].touched" style="color: #d32f2f;">Please enter a valid price</span>
+
+  
+      <div class="form">
+        <mat-form-field color="accent">
+          <input matInput placeholder="Quantity" type="number" id="productQuantity" formControlName="productQuantity" required>
+        </mat-form-field>
+      </div>
+      <span *ngIf="addProduct.controls['productQuantity'].errors?.['required'] && addProduct.controls['productQuantity'].touched" style="color: #d32f2f;">Please enter a valid quantity</span>
+
+      <div class="form">
+        <mat-form-field color="accent" >
+          <mat-label>Product Type</mat-label>
+        <mat-select id="productType" [value]="'products'" formControlName="productType">
+          <mat-option *ngFor="let type of productTypes" [value]="type.productTypeName">
+            {{type.productTypeName}}
+          </mat-option>
+        </mat-select>
+        </mat-form-field>
+      </div>
+  
+    </form>
+    <mat-dialog-actions>
+        <button mat-raised-button color="primary"  [disabled]="!addProduct.valid" (click)="confirmAdd()">Add</button>
+        <button mat-raised-button (click)="onNoClick()" tabindex="-1" color="accent">Cancel</button>
+    </mat-dialog-actions>
+      <!-- [type]="submit" -->
+  </div>
+  

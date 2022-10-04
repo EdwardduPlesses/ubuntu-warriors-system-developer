@@ -1,0 +1,64 @@
+<div class="container"><button tabindex="-1" class="close" mat-button (click)="onNoClick()">
+            <mat-icon aria-hidden="false">close</mat-icon>
+            </button>
+    <h3 mat-dialog-title>Update Repair</h3>
+    <form class="mat-dialog-content" [formGroup]="updateRepairFormControl" *ngFor="let repair of repairData">
+  
+      <!-- Update Repair NAME -->
+      <div class="form">
+        <mat-form-field color="accent">
+          <input matInput  placeholder="Name" name="repair_Name" formControlName="repair_Name" maxlength="40"
+            required>
+        <mat-error *ngIf="updateRepairFormControl.controls['repair_Name'].invalid">{{getErrorMessageName()}}</mat-error>
+
+        </mat-form-field>
+      </div>
+      <!-- Update Repair DESCRIPTION -->
+      <div class="form">
+        <mat-form-field color="accent">
+          <input matInput  placeholder="Description" name="repair_Description" maxlength="100"
+            formControlName="repair_Description" required>
+        <mat-error *ngIf="updateRepairFormControl.controls['repair_Description'].invalid">{{getErrorMessageDesc()}}</mat-error>
+        </mat-form-field>
+      </div>
+      <!-- Update Repair Rate -->
+      <div class="form">
+        <mat-form-field color="accent">
+          <input matInput  placeholder="Repair Rate /per Hour" name="repair_Rate" type="number"
+            formControlName="repair_RateAmount" required>
+        <mat-error *ngIf="updateRepairFormControl.controls['repair_RateAmount'].invalid">{{getErrorMessageRate()}}</mat-error>
+
+        </mat-form-field>
+      </div>
+      <!-- Update Repair Hours worked -->
+      <div class="form">
+        <mat-form-field color="accent">
+          <input matInput type="number" placeholder="Hours worked" name="repair_HoursWorked"
+            formControlName="repair_HoursWorked" required>
+        </mat-form-field>
+      </div>
+      <!-- Update Repair Customer -->
+      <div class="form">
+        <mat-form-field color="accent" appearance="fill">
+          <mat-label>Customer</mat-label>
+          <mat-select formControlName="repair_Customer" >
+            <mat-option  *ngFor="let customer of customers" [value]="customer.customerId" >
+              {{customer.customerName + " " + customer.customerSurname}}
+            </mat-option>
+          </mat-select>
+        <mat-error *ngIf="updateRepairFormControl.controls['repair_Customer'].invalid">{{getErrorMessageCustomer()}}</mat-error>
+        </mat-form-field>
+      </div>
+      <!-- Update Repair Deadline Date -->
+      <div class="form">
+        <mat-form-field color="accent">
+          <input matInput type="date"  formControlName="repair_DeadlineDate"  required>
+        </mat-form-field>
+      </div>
+    </form>
+    <mat-dialog-actions>
+      <button mat-raised-button color="primary" [disabled]="!updateRepairFormControl.valid" [mat-dialog-close]="1"
+        (click)="confirmUpdateRepair()">Update</button>
+      <button mat-raised-button color="accent" (click)="onNoClick()" tabindex="-1">Cancel</button>
+    </mat-dialog-actions>
+  </div>

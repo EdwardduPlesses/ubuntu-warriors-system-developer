@@ -1,0 +1,30 @@
+<div class="container" style="padding: 2em;">
+  <h1 class="title">Help</h1>
+
+  <mat-card class="titleSub">
+    <mat-form-field color="accent" class="search f-l" appearance="standard">
+      <mat-label>Search</mat-label>
+      <input matInput (keyup)="applyFilter($event)" placeholder="Search for any components help is required for..." #input>
+    </mat-form-field>
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+    <!-- Component Column -->
+    <ng-container matColumnDef="component" >
+      <th mat-header-cell *matHeaderCellDef> Component Name </th>
+      <td mat-cell *matCellDef="let comp" matTooltip="Click to view help on the component" matTooltipPosition="left" matTooltipShowDelay="2000"> {{comp.component}} </td>
+    </ng-container>
+
+    <!-- Description Column -->
+    <ng-container matColumnDef="helpDescription">
+      <th mat-header-cell *matHeaderCellDef> Description </th>
+      <td mat-cell *matCellDef="let comp"> {{comp.description}} </td>
+    </ng-container>
+
+  
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="rowClicked(row)"></tr>
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+    </tr>
+  </table>
+</mat-card>

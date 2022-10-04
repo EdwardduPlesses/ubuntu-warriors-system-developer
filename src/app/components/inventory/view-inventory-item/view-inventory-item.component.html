@@ -1,0 +1,48 @@
+<div class="container"><button tabindex="-1" class="close" mat-button (click)="onNoClick()">
+            <mat-icon aria-hidden="false">close</mat-icon>
+            </button>
+    <h2 mat-dialog-title>View Inventory Item</h2>
+
+    <form class="mat-dialog-content" #formControl="ngForm" *ngFor="let inventory of inventoryData">
+
+        <div class="form">
+            <mat-form-field color="accent">
+                <mat-label>Item Name</mat-label>
+                <input matInput placeholder="Supplier Name" value="{{inventory.inventoryName}}" readonly>
+            </mat-form-field>
+        </div>
+
+        <div class="form">
+            <mat-form-field color="accent">
+                <mat-label>Item Status</mat-label>
+                <input matInput placeholder="Supplier Name" value="{{inventory.inventoryStatus.inventoryStatusName}}"
+                    readonly>
+            </mat-form-field>
+        </div>
+
+        <div class="form">
+            <mat-form-field color="accent">
+                <mat-label>Item Description</mat-label>
+                <input matInput placeholder="Supplier Name" value="{{inventory.inventoryDescription}}" readonly>
+            </mat-form-field>
+        </div>
+
+        <div class="form">
+            <mat-form-field color="accent">
+                <mat-label>Quantity</mat-label>
+                <input matInput placeholder="Supplier Name" value="{{inventory.inventoryQuantity}}" readonly>
+            </mat-form-field>
+        </div>
+
+        <div class="form">
+            <mat-form-field color="accent">
+                <mat-label>Item Price</mat-label>
+                <input matInput placeholder="Supplier Name" value="{{inventory.inventoryPrice|currency:'R'}}" readonly>
+            </mat-form-field>
+        </div>
+
+    </form>
+    <mat-dialog-actions>
+        <button mat-raised-button color="accent" (click)="onNoClick()">Back</button>
+    </mat-dialog-actions>
+</div>

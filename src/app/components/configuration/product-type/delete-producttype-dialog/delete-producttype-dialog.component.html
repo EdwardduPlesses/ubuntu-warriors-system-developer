@@ -1,0 +1,26 @@
+<h3 mat-dialog-title>Delete Product Type</h3>
+<div *ngFor="let productType of productTypeInfo">
+<mat-dialog-content>
+    <h3>Are you sure you want to delete this product type?</h3>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <tbody>
+                <tr>
+                    <th scope="row">Product Type ID</th>
+                    <td>{{productType.ID}}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Product Type Name</th>
+                    <td>{{productType.name}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-raised-button color="primary"  [mat-dialog-close]="1"
+            (click)="confirmDeleteType(productType)">Delete</button>
+        <button mat-raised-button color="accent" (click)="onNoClick()" tabindex="-1">Cancel</button>
+</mat-dialog-actions>
+</div>
+

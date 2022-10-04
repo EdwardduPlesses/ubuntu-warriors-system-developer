@@ -1,0 +1,37 @@
+<div class="container"><button tabindex="-1" class="close" mat-button (click)="onNoClick()">
+            <mat-icon aria-hidden="false">close</mat-icon>
+            </button>
+    <h3 mat-dialog-title>Product Details</h3>
+  
+    <form class="mat-dialog-content" #formControl="ngForm" *ngFor="let product of productInfo">
+  
+      <div class="form">
+        <mat-form-field color="accent">
+          <mat-label>Name</mat-label>
+          <input matInput placeholder="Product Name" value="{{product.productName}}" readonly>
+        </mat-form-field>
+      </div>
+      <div class="form">
+        <mat-form-field color="accent">
+          <mat-label>Price</mat-label>
+          <input matInput placeholder="Product Price" value="{{product.productPrice}}" readonly>
+        </mat-form-field>
+      </div>
+      <div class="form">
+        <mat-form-field color="accent">
+          <mat-label>Quantity</mat-label>
+          <input matInput placeholder="Product Quantity" value="{{product.productQuantity}}" readonly>
+        </mat-form-field>
+      </div>
+      <!-- <div class="form">
+        <mat-form-field color="accent">
+          <mat-label>Product Type</mat-label>
+          <input matInput placeholder="User Type" value="{{product.productType}}" readonly>
+        </mat-form-field>
+      </div> -->
+    </form>
+      <mat-dialog-actions>
+        <button mat-raised-button color="accent" (click)="onNoClick()">Back</button>
+      </mat-dialog-actions>
+      <!-- [type]="submit" -->
+    </div>

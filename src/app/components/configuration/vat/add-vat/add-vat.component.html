@@ -1,0 +1,24 @@
+<div class="container"><button tabindex="-1" class="close" mat-button (click)="onNoClick()">
+            <mat-icon aria-hidden="false">close</mat-icon>
+            </button>
+    <h3 mat-dialog-title>Update VAT Rate</h3>
+  
+    <form [formGroup]="addVatForm" class="mat-dialog-content">
+
+      <!--Contains mat-hint for characters count and has maxLengt set-->
+      <div class="form">
+        <mat-form-field color="accent">
+          <input matInput #inputstate  type="number" placeholder="VAT Rate" id="vatRate" formControlName="vatRate" required >
+        </mat-form-field>
+      </div>
+      <span *ngIf="addVatForm.controls['vatRate'].errors?.['required'] && addVatForm.controls['vatRate'].touched" style="color: red;">Please enter a valid Rate</span>
+
+
+  
+    </form>
+    <mat-dialog-actions>
+        <button mat-raised-button color="primary" color="primary" [disabled]="!addVatForm.valid" (click)="confirmAdd()">Add</button>
+        <button mat-raised-button (click)="onNoClick()" tabindex="-1" color="accent">Cancel</button>
+    </mat-dialog-actions>
+      <!-- [type]="submit" -->
+  </div>

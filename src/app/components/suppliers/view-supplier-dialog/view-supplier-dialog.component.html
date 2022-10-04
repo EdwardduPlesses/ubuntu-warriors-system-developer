@@ -1,0 +1,39 @@
+<div class="container"><button tabindex="-1" class="close" mat-button (click)="onNoClick()">
+            <mat-icon aria-hidden="false">close</mat-icon>
+            </button>
+    <h2 mat-dialog-title>Supplier Details</h2>
+
+    <form class="mat-dialog-content" #formControl="ngForm" *ngFor="let supplier of supplierData">
+
+        <div class="form">
+            <mat-form-field color="accent">
+                <mat-label>Supplier Name</mat-label>
+                <input matInput placeholder="Supplier Name" value="{{supplier.supplierName}}" readonly>
+            </mat-form-field>
+        </div>
+
+        <div class="form">
+            <mat-form-field color="accent">
+                <mat-label>Supplier Email</mat-label>
+                <input matInput placeholder="Supplier Name" value="{{supplier.supplierEmail}}" readonly>
+            </mat-form-field>
+        </div>
+
+        <div class="form">
+            <mat-form-field color="accent">
+                <mat-label>Supplier Phone Number</mat-label>
+                <input matInput placeholder="Supplier Name" value="{{supplier.supplierPhoneNo}}" readonly>
+            </mat-form-field>
+        </div>
+
+        <div class="form">
+            <mat-form-field color="accent">
+                <mat-label>Supplier Address</mat-label>
+                <input matInput placeholder="Supplier Address" value="{{supplier.addressId.streetNumber}} {{supplier.addressId.streetName}}" readonly>
+            </mat-form-field>
+        </div>
+    </form>
+    <mat-dialog-actions>
+        <button mat-raised-button color="accent" (click)="onNoClick()">Back</button>
+    </mat-dialog-actions>
+</div>

@@ -1,0 +1,74 @@
+<button mat-icon-button class="helpBtn" tabindex="-1" (click)="openCustomerOrdersHelp()">
+  <mat-icon aria-hidden="false" >help</mat-icon>
+</button>
+<mat-card class="titleSub">
+  <h1 class="title">Customer Orders</h1>
+  
+  <mat-card class="tableBtns">
+
+    <mat-form-field color="accent" class="search f-l"  appearance="standard">
+      <mat-label>Search</mat-label>
+      <input matInput (keyup)="applyFilter($event)" #input>
+    </mat-form-field>
+
+    <button class="addButton f-r" mat-button matSuffix
+      (click)="addOrder()">
+      <mat-icon>add</mat-icon>
+      <span>Add Order</span>
+    </button>
+  </mat-card>
+
+  <table mat-table [dataSource]="orders" class="mat-elevation-z8">
+
+    <ng-container matColumnDef="orderID">
+      <th mat-header-cell *matHeaderCellDef> Order ID </th>
+      <td mat-cell *matCellDef="let order"> {{order.customerOrderId}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="customer">
+      <th mat-header-cell *matHeaderCellDef> Customer </th>
+      <td mat-cell *matCellDef="let order"> {{order.customer.customerName + " " + order.customer.customerSurname}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="orderAmount">
+      <th mat-header-cell *matHeaderCellDef> Order Amount </th>
+      <td mat-cell *matCellDef="let order"> {{order.orderAmount}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="orderStatus">
+      <th mat-header-cell *matHeaderCellDef> Status </th>
+      <td mat-cell *matCellDef="let order"> {{order.customerOrderStatus.customerOrderStatusName}} </td>
+    </ng-container>
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let order">
+
+        <button mat-icon-button [matMenuTriggerFor]="menu">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item (click)="viewOrder(order)">
+            <mat-icon>remove_red_eye</mat-icon>
+            <span>View Order</span>
+          </button>
+          <button mat-menu-item (click)="updateOrder(order)">
+            <mat-icon>edit</mat-icon>
+            <span>Update Order Status</span>
+          </button>
+          <button mat-menu-item (click)="completeOrder(order)">
+            <mat-icon>check_circle</mat-icon>
+            <span>Complete Order</span>
+          </button>
+        </mat-menu>
+
+      </td>
+    </ng-container>
+
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+  <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons color="accent" class="mat-elevation-z8">
+  </mat-paginator>
+
+</mat-card>

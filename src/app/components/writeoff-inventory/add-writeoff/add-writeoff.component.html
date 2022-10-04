@@ -1,0 +1,55 @@
+<div class="container"><button tabindex="-1" class="close" mat-button (click)="onNoClick()">
+            <mat-icon aria-hidden="false">close</mat-icon>
+            </button>
+  <h3 mat-dialog-title>Add New Write Off for a Inventory Item</h3>
+
+  <form [formGroup]="addWriteoff" class="mat-dialog-content">
+
+    <!--Textarea for demo purposes-->
+    <!-- <div class="form">
+        <mat-form-field color="accent">
+          <input matInput type="date" #input  placeholder="Writeoff Date" id="writeOffDate" formControlName="writeOffDate">
+        </mat-form-field>
+      </div> -->
+    <div class="form form-control">
+      <mat-form-field color="accent" appearance="fill">
+        <mat-label>Choose a date</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="writeOffDate">
+        <mat-hint>MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+    </div>
+    <span
+      *ngIf="addWriteoff.controls['writeOffDate'].errors?.['required'] && addWriteoff.controls['writeOffDate'].touched"
+      style="color: red;">Please enter writeoff date</span>
+
+    <!--Contains mat-hint for characters count and has maxLengt set-->
+    <div class="form">
+      <mat-form-field color="accent">
+        <input matInput #inputstate  placeholder="Writeoff Description" id="writeOffDesc"
+          formControlName="writeOffDesc" required>
+      </mat-form-field>
+    </div>
+    <!-- Slect inventory to write off -->
+    <div class="form">
+      <mat-form-field color="accent" appearance="fill">
+        <mat-label>Inventory Item</mat-label>
+        <mat-select formControlName="inventoryID">
+          <mat-option *ngFor="let item of inventoryItem" [value]="item.inventoryId">
+            {{item.inventoryName}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <span
+      *ngIf="addWriteoff.controls['writeOffDesc'].errors?.['required'] && addWriteoff.controls['writeOffDesc'].touched"
+      style="color: red;">Please enter writeoff description</span>
+    <div mat-dialog-actions>
+      <button mat-raised-button color="primary" [disabled]="!addWriteoff.valid" (click)="confirmAdd()">Add</button>
+      <button mat-raised-button (click)="onNoClick()" tabindex="-1" color="accent">Cancel</button>
+    </div>
+    <!-- [type]="submit" -->
+  </form>
+</div>

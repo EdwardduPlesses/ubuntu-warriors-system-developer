@@ -1,0 +1,96 @@
+table {
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
+  }
+
+  .crudButtons{
+    margin-left: 1px;
+    margin-right: 1px;
+ 
+ }
+ 
+ .viewIcon{
+     color: #0bc7c4;
+ }
+ 
+ .editIcon{
+    color: #018b89;
+ }
+ 
+ .deleteIcon{
+     color: #09333f;
+ }
+
+ .UserTypeTable{
+     overflow: auto;
+   
+ }
+
+ .tableUserType{
+    background-color: #d3edea;
+ }
+
+ .titleUserTypes{
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.titleUserTypesCard{
+    display:  flex;
+    flex-direction: column;
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 10px;
+    margin-top: 50px;
+    background-color: #009d9a;
+}
+
+.mat-row .mat-cell {
+    border-bottom: 1px solid transparent;
+    border-top: 1px solid transparent;
+    cursor: pointer;
+}
+  
+.mat-row:hover .mat-cell {
+    background-color: #d3edea;
+    color: black;
+}
+
+.customer-row-is-clicked {
+    font-weight: bold;
+}
+
+.typesContainer{
+    display:  flex;
+    flex-direction: column;
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 50px;
+    margin-top: 0px;
+    background-color: #009d9a;
+}
+
+.addButton{
+    margin-left: 30%;
+    margin-bottom: 10px;
+}
+
+.searchType{
+    width: 40%;
+    margin-left: 5%;
+    margin-right: 5%;
+   
+}
+
+.inlineChild{
+    display: inline-block;
+}
+
+.inlineParent{
+    white-space: nowrap;
+}

@@ -1,0 +1,27 @@
+<div class="container"><button tabindex="-1" class="close" mat-button (click)="onNoClick()">
+            <mat-icon aria-hidden="false">close</mat-icon>
+            </button>
+    <h3 mat-dialog-title>Assign User to Repair</h3>
+    <form class="mat-dialog-content" [formGroup]="assignRepairFormControl">
+  
+      <!-- Add New Repair Customer -->
+      <div class="form">
+        <mat-form-field color="accent" appearance="fill">
+          <mat-label>User</mat-label>
+          <mat-select formControlName="repair_User">
+            <mat-option  *ngFor="let user of repairUsers" [value]="user.id" >
+              {{user.userName}}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="assignRepairFormControl.controls['repair_User'].invalid">
+            User is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </form>
+    <mat-dialog-actions>
+      <button mat-raised-button color="primary" [disabled]="!assignRepairFormControl.valid" [mat-dialog-close]="1"
+        (click)="confirmAddUserRepair()">Assign</button>
+      <button mat-raised-button color="accent" (click)="onNoClick()" tabindex="-1">Cancel</button>
+    </mat-dialog-actions> 
+  </div>

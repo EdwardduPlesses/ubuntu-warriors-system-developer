@@ -1,0 +1,97 @@
+<button mat-icon-button class="helpBtn" tabindex="-1" (click)="openSalesHelp()">
+    <mat-icon aria-hidden="false" >help</mat-icon>
+</button>
+<mat-card class="titleSub">
+    
+    <h1 class="title">Sales</h1>
+
+    <mat-card class="tableBtns">
+        <!-- Search -->
+        <mat-form-field color="accent" class="search f-l" appearance="standard">
+            <mat-label>Search</mat-label>
+            <input matInput (keyup)="applyFilter($event)" #input>
+        </mat-form-field>
+    
+        <!-- Add Sale Button -->
+        <button class="addButton f-r" mat-button matSuffix (click)="captureSale()">
+            <mat-icon aria-hidden="false">add</mat-icon>
+            <span>Capture Sale</span>
+        </button>
+    </mat-card>
+
+    <div class="example-container mat-elevation-z8">
+        <div class="example-loading-shade" *ngIf="isLoading">
+            <div>
+                <div class="spinner"></div>
+            </div>
+        </div>
+
+    <!-- Sales Table -->
+    <div class="example-table-container">
+    <table mat-table [dataSource]="dataSource" matSort async="true" class="mat-elevation-z8" matSortDirection="desc">
+
+        <!-- Sale Date Column -->
+        <ng-container matColumnDef="SaleDate">
+            <th mat-header-cell *matHeaderCellDef>Transaction Date</th>
+            <td mat-cell *matCellDef="let sales">{{sales.saleDate|date}}</td>
+        </ng-container>
+
+        <!-- Customer Name Column -->
+        <ng-container matColumnDef="CustomerId">
+            <th mat-header-cell *matHeaderCellDef>Customer Name</th>
+            <td mat-cell *matCellDef="let sales">{{sales.customer.customerName}} {{sales.customer.customerSurname}}</td>
+        </ng-container>
+
+        <!-- Sale Status Column -->
+        <ng-container matColumnDef="SaleStatusId">
+            <th mat-header-cell *matHeaderCellDef>Sale Status</th>
+            <td mat-cell *matCellDef="let sales">{{sales.saleStatus.saleStatusName}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="SaleReceipt">
+            <th mat-header-cell *matHeaderCellDef>Sale Receipt</th>
+            <td mat-cell *matCellDef="let sales">{{sales.saleReceipt}}</td>
+        </ng-container>
+
+        <!-- Sale Amount Column -->
+        <ng-container matColumnDef="SaleAmount">
+            <th mat-header-cell *matHeaderCellDef>Total Sale Amount</th>
+            <td mat-cell *matCellDef="let sales">{{sales.saleAmount|currency:'R'}}</td>
+        </ng-container>
+
+        <!-- Actions Column -->
+        <ng-container matColumnDef="Actions">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let sales">
+
+                <button mat-icon-button [matMenuTriggerFor]="menu" (click)="onActionsClick()">
+                    <mat-icon>more_vert</mat-icon>
+                </button>
+
+                <mat-menu #menu="matMenu">
+                    <button mat-menu-item (click)="editSale(sales)">
+                        <mat-icon>account_circle</mat-icon>
+                        <span>Edit Sale Status</span>
+                    </button>
+
+                    <button mat-menu-item (click)="viewSaleStatus(sales)">
+                        <mat-icon>remove_red_eye</mat-icon>
+                        <span>View Sale</span>
+                    </button>
+                </mat-menu>
+
+            </td>
+        </ng-container>
+
+        <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell" colspan="4">No data matching the search "{{input.value}}"</td>
+        </tr>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns; let sales;" (click)="viewSaleStatus(sales)"></tr>
+    </table>
+    </div>
+
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons color="accent" ></mat-paginator>
+    </div>
+</mat-card>

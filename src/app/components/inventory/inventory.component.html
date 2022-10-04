@@ -1,0 +1,105 @@
+<button mat-icon-button class="helpBtn" tabindex="-1" (click)="openInventoryHelp()">
+    <mat-icon aria-hidden="false" >help</mat-icon>
+  </button>
+<mat-card class="titleSub">
+    <h1 class="title">Inventory</h1>
+
+    <mat-card class="tableBtns">
+
+        <!-- Search -->
+        <mat-form-field color="accent" class="search f-l" appearance="standard">
+            <mat-label>Search</mat-label>
+            <input matInput (keyup)="applyFilter($event)" #input>
+        </mat-form-field>
+
+        <!-- Add Inventory Item Button -->
+        <button class="addButton f-r" mat-button matSuffix (click)="addInventoryItem()">
+            <mat-icon aria-hidden="false">add</mat-icon>
+            <span>Add Item</span>
+        </button>
+    </mat-card>
+
+    <div class="example-container mat-elevation-z8">
+        <div class="example-loading-shade" *ngIf="isLoading">
+            <div>
+                <div class="spinner"></div>
+            </div>
+        </div>
+
+    <!-- Inventory Table -->
+    <div class="example-table-container">
+    <table mat-table [dataSource]="dataSource" matSort async="true" class="mat-elevation-z8" matSortDirection="desc">
+
+        <!-- Item Name Column -->
+        <ng-container matColumnDef="ItemName">
+            <th mat-header-cell *matHeaderCellDef>Item Name</th>
+            <td mat-cell *matCellDef="let inventory">{{inventory.inventoryName}}</td>
+        </ng-container>
+
+        <!-- Item Status Column -->
+        <ng-container matColumnDef="Status">
+            <th mat-header-cell *matHeaderCellDef>Item Status</th>
+            <td mat-cell *matCellDef="let inventory">{{inventory.inventoryStatus.inventoryStatusName}}</td>
+        </ng-container>
+
+        <!-- Item Description Column -->
+        <ng-container matColumnDef="ItemDescription">
+            <th mat-header-cell *matHeaderCellDef>Item Description</th>
+            <td mat-cell *matCellDef="let inventory">{{inventory.inventoryDescription}}</td>
+        </ng-container>
+
+        <!-- Item Quantity Column -->
+        <ng-container matColumnDef="ItemQuantity">
+            <th mat-header-cell *matHeaderCellDef>Quantity</th>
+            <td mat-cell *matCellDef="let inventory">{{inventory.inventoryQuantity}}</td>
+        </ng-container>
+
+        <!-- Item Price Column -->
+        <ng-container matColumnDef="ItemPrice">
+            <th mat-header-cell *matHeaderCellDef>Item Price</th>
+            <td mat-cell *matCellDef="let inventory">{{inventory.inventoryPrice|currency:'R'}}</td>
+        </ng-container>
+
+        <!-- Actions Column -->
+        <ng-container matColumnDef="Actions">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let inventory">
+
+                <button mat-icon-button [matMenuTriggerFor]="menu">
+                    <mat-icon>more_vert</mat-icon>
+                </button>
+
+                <mat-menu #menu="matMenu">
+
+                    <button mat-menu-item (click)="updateInventory(inventory)">
+                        <mat-icon>edit</mat-icon>
+                        <span>Update Inventory Item</span>
+                    </button>
+
+                    <button mat-menu-item (click)="deleteInventory(inventory)">
+                        <mat-icon>delete_outline</mat-icon>
+                        <span>Delete Inventory Item(s)</span>
+                    </button>
+
+                    <button mat-menu-item (click)="viewInventory(inventory)">
+                        <mat-icon>remove_red_eye</mat-icon>
+                        <span>View Inventory Item</span>
+                    </button>
+                </mat-menu>
+
+            </td>
+        </ng-container>
+
+        <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell" colspan="4">No data matching the search "{{input.value}}"</td>
+        </tr>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    </div>
+
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons color="accent"></mat-paginator>
+    </div>
+</mat-card>

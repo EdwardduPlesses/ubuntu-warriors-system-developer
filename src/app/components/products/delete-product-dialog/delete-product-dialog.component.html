@@ -1,0 +1,10 @@
+<div *ngFor="let product of productInfo">
+    <h1 mat-dialog-title>Are you sure you want to delete this product?</h1>
+    <div mat-dialog-content>
+     <h2>{{product.productName}}</h2>
+    </div>
+    <div>
+        <button mat-raised-button color="primary" [mat-dialog-close]="1" (click)="confirmDelete(product)">Delete</button>
+        <button mat-raised-button color="accent" (click)="onNoClick()" tabindex="-1">Cancel</button>
+    </div>
+</div>

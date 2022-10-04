@@ -1,0 +1,119 @@
+<button mat-icon-button class="helpBtn" tabindex="-1" (click)="openCustomersHelp()">
+    <mat-icon aria-hidden="false" >help</mat-icon>
+  </button>
+<mat-card class="titleSub">
+    <h1 class="title">Customers</h1>
+    
+    <mat-card class="tableBtns">
+        <!-- Search -->
+        <mat-form-field color="accent" class="search f-l" appearance="standard">
+            <mat-label>Search</mat-label>
+            <input matInput (keyup)="applyFilter($event)" #input>
+        </mat-form-field>
+    
+        <!-- Add Sale Button -->
+        <button tabindex="-1" class="addButton f-r" mat-button matSuffix (click)="addNewCustomer()">
+            <mat-icon aria-hidden="false">add</mat-icon>
+            <span>Add Customer</span>
+        </button>
+    </mat-card>
+
+    <div class="example-container mat-elevation-z8">
+        <div class="example-loading-shade" *ngIf="isLoadingResults">
+            <div>
+                <div class="spinner"></div>
+            </div>
+        </div>
+        <!-- Customer Table -->
+        <div class="example-table-container">
+            <table mat-table [dataSource]="dataSource" matSort async="true" matSortActive="CustomerName"
+                class="mat-elevation-z8">
+    
+                <!-- Title Column -->
+                <ng-container matColumnDef="titleDescr">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Title </th>
+                    <td mat-cell *matCellDef="let customer"> {{customer.titleDescr}} </td>
+                </ng-container>
+    
+                <!-- Name Column -->
+                <ng-container matColumnDef="CustomerName">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+                    <td mat-cell *matCellDef="let customer"> {{customer.CustomerName}} </td>
+                </ng-container>
+    
+                <!-- Surname Column -->
+                <ng-container matColumnDef="CustomerSurname">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Surname </th>
+                    <td mat-cell *matCellDef="let customer"> {{customer.CustomerSurname}} </td>
+                </ng-container>
+    
+                <!-- Address Column -->
+                <ng-container matColumnDef="streetName">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Address </th>
+                    <td mat-cell *matCellDef="let customer"> {{customer.streetName}} </td>
+                </ng-container>
+    
+                <!-- Competency Column -->
+                <ng-container matColumnDef="customerCompetencyType">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Competency </th>
+                    <td mat-cell *matCellDef="let customer"> {{customer.customerCompetencyType}} </td>
+                </ng-container>
+    
+                <!-- Phone Number Column -->
+                <ng-container matColumnDef="CustomerPhoneNo">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Phone Number </th>
+                    <td mat-cell *matCellDef="let customer"> {{customer.CustomerPhoneNo}} </td>
+                </ng-container>
+    
+                <!-- ID Number Column -->
+                <ng-container matColumnDef="CustomerIdNumber">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> ID Number </th>
+                    <td mat-cell *matCellDef="let customer"> {{customer.CustomerIdNumber}} </td>
+                </ng-container>
+    
+                <!-- email Column -->
+                <ng-container matColumnDef="CustomerEmail">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Email </th>
+                    <td mat-cell *matCellDef="let customer"> {{customer.CustomerEmail}} </td>
+                </ng-container>
+    
+                <!-- Actions Column -->
+                <ng-container matColumnDef="actions">
+                    <th mat-header-cell *matHeaderCellDef></th>
+                    <td mat-cell *matCellDef="let customer">
+    
+                        <button mat-icon-button [matMenuTriggerFor]="menu" (click)="onActionsClick()">
+                            <mat-icon>more_vert</mat-icon>
+                        </button>
+    
+                        <mat-menu #menu="matMenu">
+                            <button mat-menu-item (click)="editCustomer(customer)">
+                                <mat-icon>edit</mat-icon>
+                                <span>Edit Customer</span>
+                            </button>
+    
+                            <button mat-menu-item (click)="deleteCustomer(customer)">
+                                <mat-icon>delete_outline</mat-icon>
+                                <span>Delete Customer</span>
+                            </button>
+    
+                            <button mat-menu-item (click)="viewCustomer(customer)">
+                                <mat-icon>remove_red_eye</mat-icon>
+                                <span>View Customer</span>
+                            </button>
+                        </mat-menu>
+    
+                    </td>
+                </ng-container>
+    
+                <tr class="mat-row" *matNoDataRow>
+                    <td class="mat-cell" colspan="4">No data matching the search "{{input.value}}"</td>
+                </tr>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true">
+                <tr mat-row *matRowDef="let row; columns: displayedColumns; let customer;" (click)="viewCustomer(customer)">
+                </tr>
+            </table>
+        </div>
+      <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons color="accent"> </mat-paginator>
+    </div>
+</mat-card>

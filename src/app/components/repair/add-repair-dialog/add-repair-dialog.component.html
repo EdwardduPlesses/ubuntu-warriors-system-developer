@@ -1,0 +1,57 @@
+<div class="container"><button tabindex="-1" class="close" mat-button (click)="onNoClick()">
+            <mat-icon aria-hidden="false">close</mat-icon>
+            </button>
+  <h3 mat-dialog-title>Add New Repair</h3>
+  <form class="mat-dialog-content" [formGroup]="addRepairFormControl">
+
+    <!-- Add New Repair NAME -->
+    <div class="formCSS">
+      <mat-form-field color="accent">
+        <input matInput  placeholder="Repair Name" name="repair_Name" formControlName="repair_Name" maxlength="40"
+          required>
+        <mat-error *ngIf="addRepairFormControl.controls['repair_Name'].invalid">{{getErrorMessageName()}}</mat-error>
+      </mat-form-field>
+    </div>
+    <!-- Add New Repair DESCRIPTION -->
+    <div class="formCSS">
+      <mat-form-field color="accent">
+        <textarea matInput  placeholder="Description" name="repair_Description" maxlength="100"
+          formControlName="repair_Description" required></textarea>
+        <mat-error *ngIf="addRepairFormControl.controls['repair_Description'].invalid">{{getErrorMessageDesc()}}</mat-error>
+      </mat-form-field>
+    </div>
+    <!-- Add New Repair RATE -->
+    <div class="formCSS" >
+      <mat-form-field *ngIf = "this.authService.isAdminObs.getValue() === true" color="accent">
+        <input *ngIf = "this.authService.isAdminObs.getValue() === true" matInput placeholder="Repair Rate/Hour" name="repair_Rate"
+          formControlName="repair_RateAmount" >
+        <mat-error *ngIf="addRepairFormControl.controls['repair_RateAmount'].invalid">{{getErrorMessageRate()}}</mat-error>
+      </mat-form-field>
+    </div>
+    <!-- Add New Repair Customer -->
+    <div class="formCSS">
+      <mat-form-field color="accent" appearance="fill">
+        <mat-label>Customer</mat-label>
+        <mat-select formControlName="repair_Customer">
+          <mat-option  *ngFor="let customer of customers" [value]="customer.customerId" >
+            {{customer.customerName + " " + customer.customerSurname}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="addRepairFormControl.controls['repair_Customer'].invalid">{{getErrorMessageCustomer()}}</mat-error>
+      </mat-form-field>
+      <button mat-raised-button color="primary" class="addCustomer" (click)="addNewCustomer()">Add Customer</button>
+    </div>
+    <!-- Add New Repair Deadline Date -->
+    <div class="formCSS">
+      <mat-form-field color="accent">
+        <input matInput type="date" formControlName="repair_SelectedDate" required>
+        <mat-error *ngIf="addRepairFormControl.controls['repair_SelectedDate'].invalid">{{getErrorMessageDeadline()}}</mat-error>
+      </mat-form-field>
+    </div>
+  </form>
+  <mat-dialog-actions>
+    <button mat-raised-button color="primary" [disabled]="!addRepairFormControl.valid" [mat-dialog-close]="1"
+      (click)="confirmAddRepair()">Add</button>
+    <button mat-raised-button color="accent" (click)="onNoClick()" tabindex="-1">Cancel</button>
+  </mat-dialog-actions>
+</div>

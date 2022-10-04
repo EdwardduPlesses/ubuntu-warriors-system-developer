@@ -1,0 +1,58 @@
+<div class="container"><button tabindex="-1" class="close" mat-button (click)="onNoClick()">
+            <mat-icon aria-hidden="false">close</mat-icon>
+            </button>
+    <h3 mat-dialog-title>View Repair</h3>
+    <form class="mat-dialog-content" [formGroup]="viewRepairFormControl"  *ngFor="let repair of repairData">
+  
+      <!-- View Repair NAME -->
+      <div class="form">
+        <mat-form-field color="accent">
+          <input matInput  placeholder="Name" value="{{repair.name}}" 
+          readonly>
+        </mat-form-field>
+      </div>
+      <!-- View Repair DESCRIPTION -->
+      <div class="form">
+        <mat-form-field color="accent">
+          <input matInput  placeholder="Description" value="{{repair.description}}" 
+             readonly>
+        </mat-form-field>
+      </div>
+      <!-- View Repair Customer -->
+      <div class="form">
+        <mat-form-field color="accent">
+          <input matInput  placeholder="Customer" value="{{repair.repairCustomer}}" 
+             readonly>
+        </mat-form-field>
+      </div>
+      <!-- View Repair Assigned -->
+      <div class="form">
+        <mat-form-field color="accent">
+          <input matInput  placeholder="Repair Assigned to" value="No one Assigned" formControlName="userRepair" 
+             readonly>
+        </mat-form-field>
+      </div>
+      <!-- View Repair Rate -->
+      <div class="form">
+        <mat-form-field color="accent">
+          <input matInput  placeholder="Repair Rate /per Hour" value="{{repair.repairRateAmount | currency:'R'}}" readonly>
+        </mat-form-field>
+      </div>
+      <!-- View Repair Hours Worked -->
+      <div class="form">
+        <mat-form-field color="accent">
+          <input matInput  placeholder="Hours Worked" value="{{repair.repairRateHours}}" readonly>
+        </mat-form-field>
+      </div>
+      <!-- View Repair Deadline Date -->
+      <div class="form">
+        <mat-form-field color="accent">
+          <input matInput  placeholder="Deadline Date" value="{{repair.repairDeadlineDate | date}}" 
+             readonly>
+        </mat-form-field>
+      </div>
+    </form>
+    <mat-dialog-actions>
+      <button mat-raised-button color="accent" (click)="onNoClick()" tabindex="-1">Cancel</button>
+    </mat-dialog-actions>
+  </div>

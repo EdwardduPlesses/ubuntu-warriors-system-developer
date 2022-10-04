@@ -1,0 +1,35 @@
+<button tabindex="-1" class="close" mat-button (click)="onNoClick()">
+  <mat-icon aria-hidden="false">close</mat-icon>
+  </button>
+<div class="container">
+    <h3 mat-dialog-title>View User</h3>
+  
+    <form [formGroup]="viewUser" class="mat-dialog-content" (ngSubmit)="submit">
+      <div class="form">
+        <mat-form-field color="accent">
+          <input matInput [readonly]="true" type="string" #input  placeholder="User Type" id="usertype" formControlName="usertype">
+        </mat-form-field>
+      </div>
+      <div class="form">
+        <mat-form-field color="accent">
+          <input matInput [readonly]="true" type="string" #input  placeholder="Username" id="username" formControlName="username">
+        </mat-form-field>
+      </div>
+      <div class="form">
+        <mat-form-field color="accent">
+          <input matInput [readonly]="true" type="string" #input  placeholder="Email" id="email" formControlName="email">
+        </mat-form-field>
+      </div>
+      <div class="form">
+        <mat-form-field color="accent">
+          <input matInput [readonly]="true" type="string" #input  placeholder="Phone Number" id="phoneNo" formControlName="phoneNo">
+        </mat-form-field>
+      </div>
+      
+      <!-- [type]="submit" -->
+    </form>
+
+    <div mat-dialog-actions>
+      <button mat-raised-button color="accent" (click)="onNoClick()">Back</button>
+    </div>
+</div>

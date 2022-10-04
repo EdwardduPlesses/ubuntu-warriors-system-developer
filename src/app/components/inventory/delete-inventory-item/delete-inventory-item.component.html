@@ -1,0 +1,28 @@
+<h2 mat-dialog-title>Delete Inventory Item</h2>
+
+<mat-dialog-content *ngFor="let inventory of inventoryData">
+    <h3>Are you sure you want to delete this inventory item(s)?</h3>
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <tbody>
+                <tr>
+                    <th scope="row">Item</th>
+                    <td>{{inventory.inventoryName}}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Quantity</th>
+                    <td>{{inventory.inventoryQuantity}}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Price</th>
+                    <td>{{inventory.inventoryPrice|currency: 'R'}}</td>
+                </tr>
+        </table>
+    </div>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+    <button mat-raised-button color="primary" (click)="confirmInventoryDelete()">Delete</button>
+    <button mat-raised-button color="accent" (click)="onNoClick()">Cancel</button>
+</mat-dialog-actions>

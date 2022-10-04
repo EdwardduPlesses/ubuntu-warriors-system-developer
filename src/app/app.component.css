@@ -1,0 +1,25 @@
+a.active.active {
+  background-color: #2a2b38 !important;
+  /* Note: You could also use a custom theme */
+  border-radius: 15px 15px 15px 15px;
+}
+
+a {
+  width: auto !important;
+  margin-left: 0%;
+  color: rgb(0, 0, 0) !important;
+  margin-top: 6px;
+  margin-bottom: 6px;
+}
+
+a:hover {
+  background-color: #2a2b3886 !important;
+  /* Note: You could also use a custom theme */
+  border-radius: 15px 15px 15px 15px;
+  transition: 0.5s;
+}
+
+/* a.active.active:hover {
+  background-color: #09333f !important;
+  border-radius: 15px 15px 15px 15px !important;
+} */

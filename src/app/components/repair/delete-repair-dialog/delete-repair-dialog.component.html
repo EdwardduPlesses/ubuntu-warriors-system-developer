@@ -1,0 +1,16 @@
+<div *ngFor="let repair of repairData">
+    <form mat-dialog-content >
+        <h1 mat-dialog-title>Are you sure you want to delete this Repair?</h1>
+        <p><strong>Repair:</strong> {{repair.name}}</p>
+        <p><strong>Repair Description:</strong> {{repair.description}}</p>
+        <p><strong>Repair Start Date:</strong> {{repair.repairStartDate | date}}</p>
+        <p><strong>Repair Deadline Date:</strong> {{repair.repairDeadlineDate | date}}</p>
+        <p><strong>Repair Customer:</strong> {{repair.repairCustomer}}</p>
+    </form>
+    <mat-dialog-actions>
+        <button mat-raised-button color="primary" [mat-dialog-close]="1"
+            (click)="confirmDeleteRepair(repair)">Delete</button>
+        <button mat-raised-button color="accent" (click)="onNoClick()" tabindex="-1">Cancel</button>
+    </mat-dialog-actions>
+</div>
+

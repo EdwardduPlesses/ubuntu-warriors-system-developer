@@ -1,0 +1,67 @@
+<div class="container"><button tabindex="-1" class="close" mat-button (click)="onNoClick()">
+            <mat-icon aria-hidden="false">close</mat-icon>
+            </button>
+  <h2 mat-dialog-title>Update Inventory Item</h2>
+
+  <form class="mat-dialog-content" [formGroup]="updateInventoryItem" *ngFor="let inventory of inventoryData">
+
+    <!-- Inventory Status -->
+    <div class="form">
+      <mat-form-field color="accent">
+        <mat-label>Inventory Status</mat-label>
+        <mat-select formControlName="inventoryStatusId" required>
+          <mat-option *ngFor="let inventory of inventorystatus" [value]="inventory.inventoryStatusId">
+            {{inventory.inventoryStatusName}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <!-- Inventory Name -->
+    <div class="form">
+      <mat-form-field color="accent">
+        <input matInput formControlName="inventoryName" placeholder="Inventory Name" value={{inventory.inventoryName}}
+          required>
+          <mat-error *ngIf="updateInventoryItem.get('inventoryName')!.hasError('required')"> Inventory Name is
+            <strong>required</strong></mat-error>
+      </mat-form-field>
+    </div>
+
+    <!-- Inventory Description -->
+    <div class="form">
+      <mat-form-field color="accent">
+        <input matInput formControlName="inventoryDescription" placeholder="Inventory Description"
+          value={{inventory.inventoryDescription}} required>
+          <mat-error *ngIf="updateInventoryItem.get('inventoryDescription')!.hasError('required')"> Inventory Description
+            is <strong>required</strong></mat-error>
+      </mat-form-field>
+    </div>
+
+    <!-- Inventory Quantity -->
+    <div class="form">
+      <mat-form-field color="accent">
+        <input matInput formControlName="inventoryQuantity" placeholder="Inventory Quantity"
+          value={{inventory.inventoryQuantity}} required>
+          <mat-error *ngIf="updateInventoryItem.get('inventoryQuantity')!.hasError('required')"> Inventory Quantity is
+            <strong>required</strong></mat-error>
+      </mat-form-field>
+    </div>
+
+    <!-- Inventory Price -->
+    <div class="form">
+      <mat-form-field color="accent">
+        <input matInput formControlName="inventoryPrice" placeholder="Inventory Price"
+          value={{inventory.inventoryPrice}} required>
+          <mat-error *ngIf="updateInventoryItem.get('inventoryPrice')!.hasError('required')"> Inventory Price is
+            <strong>required</strong></mat-error>
+      </mat-form-field>
+    </div>
+  </form>
+
+  <!-- Actions -->
+  <mat-dialog-actions>
+    <button mat-raised-button color="primary"  [disabled]="!updateInventoryItem.valid" [mat-dialog-close]="1"
+      (click)="confirmEditInventory()">Update</button>
+    <button mat-raised-button color="accent" (click)="onNoClick()">Cancel</button>
+  </mat-dialog-actions>
+</div>

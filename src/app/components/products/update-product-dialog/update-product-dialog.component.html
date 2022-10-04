@@ -1,0 +1,52 @@
+<div class="container" *ngIf="updateProduct">
+  <button tabindex="-1" class="close" mat-button (click)="onNoClick()">
+    <mat-icon aria-hidden="false">close</mat-icon>
+    </button>
+    <h3 mat-dialog-title>Update Product</h3>
+  
+    <form class="mat-dialog-content" [formGroup]="updateProduct">
+  
+  
+      <!--Textarea for demo purposes-->
+      <div class="form">
+        <mat-form-field color="accent">
+          <input matInput placeholder="Name" id="productName" formControlName="productName" required >
+        </mat-form-field>
+      </div>
+      <span *ngIf="updateProduct.controls['productName'].errors?.['required'] && updateProduct.controls['productName'].touched" style="color: red;">Please enter name</span>
+  
+      <!--Contains mat-hint for characters count and has maxLengt set-->
+      <!-- <div class="form">
+        <mat-form-field color="accent">
+          <input matInput   placeholder="Quantity"  id="productQuantity" formControlName="productQuantity" required >
+        </mat-form-field>
+      </div>
+      <span *ngIf="updateProduct.controls['productQuantity'].errors?.['required'] && updateProduct.controls['productQuantity'].touched" style="color: red;">Please enter Quantity</span>
+   -->
+      <div class="form">
+        <mat-form-field color="accent">
+          <input matInput placeholder="Price"  id="productPrice" formControlName="productPrice" required>
+        </mat-form-field>
+      </div>
+      <span *ngIf="updateProduct.controls['productPrice'].errors?.['required'] && updateProduct.controls['productPrice'].touched" style="color: red;">Please enter price</span>
+
+      <div class="form">
+        <mat-form-field color="accent">
+          <mat-label>Product Type</mat-label>
+        <mat-select id="productType" [value]="'products'" formControlName="productType">
+          <mat-option *ngFor="let type of productTypes" [value]="type.productTypeId">
+            {{type.productTypeName}}
+          </mat-option>
+        </mat-select>
+        </mat-form-field>
+      </div>
+  
+
+    <mat-dialog-actions>
+        <button mat-raised-button color="primary" [disabled]="!updateProduct.valid" (click)="confirmUpdate()">Update</button>
+        <button mat-raised-button (click)="onNoClick()" tabindex="-1" color="accent">Cancel</button>
+    </mat-dialog-actions>
+      <!-- [type]="submit" -->
+    </form>
+  </div>
+  

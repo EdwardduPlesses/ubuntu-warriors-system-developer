@@ -1,0 +1,104 @@
+<div *ngFor="let repair of repairData">
+    <form mat-dialog-content>
+        <h1 mat-dialog-title>Are you sure this Repair is Complete?</h1>
+        <!-- <div class="table-responsive">
+            <table class="table table-striped">
+                <tbody>
+                  <tr>
+                    <th scope="row">Repair</th>
+                    <td>{{repair.name}}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Description</th>
+                    <td>{{repair.description}}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Start Date</th>
+                    <td>{{repair.repairStartDate | date}}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Deadline Date</th>
+                    <td>{{repair.repairDeadlineDate | date}}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Customer</th>
+                    <td>{{repair.repairCustomer}}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Rate</th>
+                    <td>{{repair.repairRateAmount}}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Hours worked</th>
+                    <td>{{repair.repairRateHours}}</td>
+                  </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th scope="row">Total Cost</th>
+                        <td>{{repair.repairCost}}</td>
+                    </tr>
+                </tfoot>
+              </table>
+        </div> -->
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Value</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+              <tbody>
+                <tr>
+                  <td>Repair</td>
+                  <td>{{repair.name}}</td>
+                </tr>
+                <tr>
+                  <td>Description</td>
+                  <td>{{repair.description}}</td>
+                </tr>
+                <tr>
+                  <td>Start Date</td>
+                  <td>{{repair.repairStartDate | date}}</td>
+                </tr>
+                <tr>
+                  <td>Deadline Date</td>
+                  <td>{{repair.repairDeadlineDate | date}}</td>
+                </tr>
+                <tr>
+                  <td>Customer</td>
+                  <td>{{repair.repairCustomer}}</td>
+                </tr>
+                <tr>
+                  <td>Rate</td>
+                  <td>{{repair.repairRateAmount}}</td>
+                </tr>
+                <tr>
+                  <td>Hours worked</td>
+                  <td>{{repair.repairRateHours}}</td>
+                </tr>
+                <tr>
+                  <td>Labour cost</td>
+                  <td>{{repair.repairCost | currency:"R"}}</td>
+                </tr>
+                <tr>
+                  <td>Inventory Cost</td>
+                  <td>{{this.totalInventoryCost | currency:"R"}}</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                  <tr>
+                      <th>Total Cost</th>
+                      <th>{{repair.repairCost + this.totalInventoryCost | currency:"R"}}</th>
+                  </tr>
+              </tfoot>
+            </table>
+      </div>
+      </form>
+    <mat-dialog-actions>
+        <button mat-raised-button color="primary" [mat-dialog-close]="1"
+            (click)="completeRepair(repair)">Complete</button>
+        <button mat-raised-button color="accent" (click)="onNoClick()" tabindex="-1">Cancel</button>
+    </mat-dialog-actions>
+</div>

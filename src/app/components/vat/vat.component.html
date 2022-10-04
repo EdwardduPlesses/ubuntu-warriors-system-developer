@@ -1,0 +1,50 @@
+<!--Product Types Title at the top of screen-->
+
+<mat-card class="titleUserTypesCard">
+    <mat-card-title class="titleUserTypes">VAT Rates</mat-card-title>
+  </mat-card>
+  
+  
+  
+  <mat-card class="typesContainer">
+  
+  
+    <!--VAT Table-->
+    <div class="UserTypeTable">
+  
+      <div class="inlineParent">
+        <!-- Search VAT Input-->
+        <mat-form-field color="accent" (keyup) = "applyFilter($event)" class="searchType inlineChild" appearance="standard">
+            <mat-label>Search</mat-label>
+            <input matInput  placeholder="User Type" #input>
+        </mat-form-field>
+  
+        <!-- Add VAT Rate Button-->
+        <button class="addButton inlineChild" mat-button matTooltip="Add VAT" matTooltipPosition="left"
+        matTooltipShowDelay="500" matTooltipHideDelay="1000" matSuffix (click)="addNewVATRate()">
+            <mat-icon aria-hidden="false" aria-label="Add Icon">add</mat-icon>
+        </button>
+    </div>
+  
+  
+      <table mat-table [dataSource]="dataSource" class=" tableUserType mat-elevation-z8"> <!--Not sure wat to do with the datasource-->
+  
+        <!-- Rate Column -->
+        <ng-container matColumnDef="Rate">
+          <th mat-header-cell style="justify-content: center;" *matHeaderCellDef> VAT </th>
+          <td mat-cell *matCellDef="let vat"> {{vat.vatRate + '%' }}</td>
+        </ng-container>
+  
+        <!-- Date Column -->
+        <ng-container matColumnDef="Date">
+          <th mat-header-cell style="justify-content: center;" *matHeaderCellDef> Date </th>
+          <td mat-cell *matCellDef="let vat"> {{vat.vatDate | date}} </td>
+        </ng-container>
+        <!--Display Colums-->
+        <tr mat-header-row  *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  
+      </table>
+    </div>
+  </mat-card>
+  

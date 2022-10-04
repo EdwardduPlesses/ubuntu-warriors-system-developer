@@ -1,0 +1,60 @@
+table {
+    width: 100% !important;
+}
+
+.mat-cell,
+.mat-header-cell {
+    padding: 20px;
+}
+
+.mat-form-field {
+    font-size: 14px;
+    width: 100%;
+}
+
+.mat-elevation-z8 {
+    margin-top: 1rem;
+}
+
+.titleCard {
+    display: flex;
+    flex-direction: column;
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #009d9a;
+}
+
+.pie-card {
+    display: flex;
+    flex-direction: column;
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    background-color: #ffffff;
+}
+
+.table-card {
+    display: flex;
+    flex-direction: column;
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    background-color: #ffffff;
+}
+
+.download-btn {
+    background-color: #09333f;
+    color: #26f7b2;
+}
+
+.select-opt {
+    background-color: #26f7b2;
+}
+
+.title-name {
+    margin-left: auto;
+    margin-right: auto;
+}

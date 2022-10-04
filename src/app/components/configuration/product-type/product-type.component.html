@@ -1,0 +1,88 @@
+<!--Product Types Title at the top of screen-->
+
+
+  
+  
+  
+  <mat-card class="titleSub">
+    <!-- <mat-card class="titleUserTypesCard">
+      <mat-card-title class="titleUserTypes">Product Types</mat-card-title>
+    </mat-card> -->
+    <h1 class="title">Product Types</h1>
+    <br>
+  
+    <!--User Type Table-->
+
+    <mat-card class="tableBtns">
+        <!-- Search Customer Input-->
+        <mat-form-field color="accent" (keyup) = "applyFilter($event)" class="search f-l"  appearance="standard">
+            <mat-label>Search</mat-label>
+            <input matInput #input>
+        </mat-form-field>
+  
+        <!-- Add Product Type Button-->
+        <button class="addButton f-r" mat-button  matSuffix (click)="addNewProductType()">
+            <mat-icon aria-hidden="false">add</mat-icon>
+            <span>Add Product Type</span>
+        </button>
+    </mat-card>
+   
+  
+  
+      <table mat-table [dataSource]="dataSource" class=" mat-elevation-z8"> <!--Not sure wat to do with the datasource-->
+  
+        <!-- Name Column -->
+        <ng-container matColumnDef="productType">
+          <th mat-header-cell *matHeaderCellDef> Type Name </th>
+          <td mat-cell *matCellDef="let productType"> {{productType.productTypeName}}</td>
+        </ng-container>
+  
+        <!-- ID Column -->
+        <ng-container matColumnDef="ID">
+          <th mat-header-cell *matHeaderCellDef> Type ID </th>
+          <td mat-cell *matCellDef="let productType"> {{productType.productTypeId}} </td>
+        </ng-container>
+  
+        <!-- CRUD Column -->
+        <!-- <ng-container matColumnDef="crud">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let productType">
+            
+            <button mat-button (click)="updateProductType(productType)" class="crudButtons editIcon">
+              <mat-icon aria-hidden="false">edit</mat-icon>
+            </button>
+            
+            <button mat-button (click)="deleteProductType(productType)" class="crudButtons deleteIcon">
+              <mat-icon aria-hidden="false">delete</mat-icon>
+            </button>
+          </td>
+        </ng-container> -->
+        <!--CRUD Column-->
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let productType">
+      
+          <button mat-icon-button [matMenuTriggerFor]="menu">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="updateProductType(productType)">
+              <mat-icon>edit</mat-icon>
+              <span>Update Product Type</span>
+            </button>
+            <button mat-menu-item (click)="deleteProductType(productType)">
+              <mat-icon>delete</mat-icon>
+              <span>Delete Product Type</span>
+            </button>
+          </mat-menu>
+      
+        </td>
+      </ng-container>
+  
+        <!--Display Colums-->
+        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  
+      </table>
+  </mat-card>
+  

@@ -1,0 +1,17 @@
+<button tabindex="-1" class="close" mat-button (click)="onNoClick()">
+  <mat-icon aria-hidden="false">close</mat-icon>
+</button>
+<div class="container">
+  <h3 mat-dialog-title>Permissions</h3>
+  <!-- display user permissions with an angular checklist, loop through all the permissions the permissions array -->
+  <mat-card class="permissionsCard">
+    <mat-card-content class="readonly-wrapper">
+      <mat-selection-list #permissionList class="readonly-block">
+        <mat-list-option *ngFor="let permission of permissions" [value]="permission" [selected]="permission">
+          {{permission}}
+        </mat-list-option>
+      </mat-selection-list>
+    </mat-card-content>
+  <button mat-raised-button color="primary" (click)="onNoClick()" tabindex="-1">Close</button>
+  </mat-card>
+</div>

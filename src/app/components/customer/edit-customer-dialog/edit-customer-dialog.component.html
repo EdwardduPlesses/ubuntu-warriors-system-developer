@@ -1,0 +1,96 @@
+<div class="container"><button tabindex="-1" class="close" mat-button (click)="onNoClick()">
+            <mat-icon aria-hidden="false">close</mat-icon>
+            </button>
+  <h3 mat-dialog-title>Update Customer</h3>
+
+  <form class="mat-dialog-content" [formGroup]="updateCustomerFormControl" *ngFor="let customer of customerData">
+
+    <!-- Add New Customer TITLE -->
+    <div class="form">
+      <mat-form-field color="accent">
+        <mat-label>Title</mat-label>
+        <mat-select formControlName="Title_ID" required>
+          <mat-option *ngFor="let title of titles" [value]="title.titleId">
+            {{title.titleDescr}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="updateCustomerFormControl.controls['Title_ID'].invalid">{{getErrorMessageTitle()}}</mat-error>
+      </mat-form-field>
+    </div>
+
+    <!-- Add New Customer NAME -->
+    <div class="form">
+      <mat-form-field color="accent">
+        <input matInput placeholder="Name" name="Customer_Name" formControlName="Customer_Name"
+           maxlength="36" required>
+        <mat-error *ngIf="updateCustomerFormControl.controls['Customer_Name'].invalid">{{getErrorMessageName()}}
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <!-- Add New Customer SURNAME -->
+    <div class="form">
+      <mat-form-field color="accent">
+        <input matInput placeholder="Surname" name="Customer_Surname" formControlName="Customer_Surname"
+           maxlength="36" required>
+        <mat-error *ngIf="updateCustomerFormControl.controls['Customer_Surname'].invalid">{{getErrorMessageSurname()}}
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <!-- Add New Customer ADDRESS -->
+    <div class="form">
+      <mat-form-field color="accent">
+        <input matInput placeholder="Address" (keydown.enter)="$event.preventDefault()" name="Address_ID"
+          formControlName="Address_ID" #search required>
+        <mat-error *ngIf="updateCustomerFormControl.controls['Address_ID'].invalid">{{getErrorMessageAddress()}}
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <!-- Add New Customer COMPETENCY -->
+    <div class="form">
+      <mat-form-field color="accent">
+        <input matInput placeholder="Competency" name="CustomerCompetencyType" formControlName="CustomerCompetencyType"
+           required>
+        <mat-error *ngIf="updateCustomerFormControl.controls['CustomerCompetencyType'].invalid">
+          {{getErrorMessageComp()}}</mat-error>
+      </mat-form-field>
+    </div>
+
+    <!-- Add New Customer PHONE NUMBER -->
+    <div class="form">
+      <mat-form-field color="accent">
+        <input matInput placeholder="Phone Number" name="Customer_PhoneNo" formControlName="Customer_PhoneNo"
+           maxlength="14" appPhoneMask required>
+        <mat-error *ngIf="updateCustomerFormControl.controls['Customer_PhoneNo'].invalid">{{getErrorMessagePhoneNo()}}
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <!-- Add New Customer ID NUMBER -->
+    <div class="form">
+      <mat-form-field color="accent">
+        <input matInput placeholder="ID Number" name="Customer_IDNumber" formControlName="Customer_IDNumber"
+           maxlength="13" required>
+        <mat-error *ngIf="updateCustomerFormControl.controls['Customer_IDNumber'].invalid">{{getErrorMessageID()}}
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <!-- email Column -->
+    <div class="form">
+      <mat-form-field color="accent">
+        <input matInput placeholder="Email" name="Customer_Email" formControlName="Customer_Email"
+          maxlength="40" required>
+        <mat-error *ngIf="updateCustomerFormControl.controls['Customer_Email'].invalid">{{getErrorMessageEmail()}}
+        </mat-error>
+      </mat-form-field>
+    </div>
+  </form>
+  <mat-dialog-actions>
+    <button mat-raised-button color="primary"  [disabled]="!updateCustomerFormControl.valid"
+      [mat-dialog-close]="1" (click)="confirmUpdate()">Update</button>
+    <button mat-raised-button color="accent" (click)="onNoClick()" tabindex="-1">Cancel</button>
+  </mat-dialog-actions>
+</div>

@@ -1,0 +1,959 @@
+@import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
+@import "../node_modules/angular-calendar/css/angular-calendar.css";
+
+html,
+body {
+  height: 96.3%;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  background-color: #2a2b38;
+}
+
+
+:root {
+  --accentColor: #dabd1b;
+  --mainDarkColor: #2a2b38;
+  --mainLightColor: #fff;
+}
+
+.green-snackbar {
+  background-color: var(--mainDarkColor);
+  color: var(--accentColor);
+}
+
+.green-snackbar button {
+  background-color: var(--mainDarkColor);
+  color: var(--accentColor);
+  border: none;
+}
+
+.app-header {
+  justify-content: space-between;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  box-shadow: 0 3px 5px -1px rgba(0, 0, 0, .2), 0 6px 10px 0 rgba(0, 0, 0, .14), 0 1px 18px 0 rgba(0, 0, 0, .12);
+}
+
+.positronx {
+  text-decoration: none;
+  color: #ffffff;
+}
+
+.box {
+  position: relative;
+  top: 0;
+  opacity: 1;
+  float: left;
+  padding: 60px 50px 40px 50px;
+  width: 100%;
+  background: #fff;
+  border-radius: 10px;
+  transform: scale(1);
+  -webkit-transform: scale(1);
+  -ms-transform: scale(1);
+  z-index: 5;
+  max-width: 330px;
+}
+
+.box.back {
+  transform: scale(.95);
+  -webkit-transform: scale(.95);
+  -ms-transform: scale(.95);
+  top: -20px;
+  opacity: .8;
+  z-index: -1;
+}
+
+.box:before {
+  content: "";
+  width: 100%;
+  height: 30px;
+  border-radius: 10px;
+  position: absolute;
+  top: -10px;
+  background: rgba(255, 255, 255, .6);
+  left: 0;
+  transform: scale(.95);
+  -webkit-transform: scale(.95);
+  -ms-transform: scale(.95);
+  z-index: -1;
+}
+
+.login-wrapper .login-form {
+  min-width: 100%;
+  max-width: 300px;
+  width: 100%;
+}
+
+.login-full-width,
+.btn-block {
+  width: 100%;
+}
+
+.login-wrapper mat-card-header {
+  text-align: center;
+  width: 100%;
+  display: block;
+  font-weight: 700;
+}
+
+.login-wrapper mat-card-header mat-card-title {
+  font-size: 30px;
+  margin: 0;
+}
+
+.login-wrapper .mat-card {
+  padding: 40px 70px 50px;
+}
+
+.login-wrapper .mat-stroked-button {
+  border: 1px solid currentColor;
+  line-height: 54px;
+  background: #FFF7FA;
+}
+
+.login-wrapper .mat-form-field-appearance-legacy .mat-form-field-infix {
+  padding: 0.8375em 0;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.title-color {
+  color: white;
+}
+
+.loggedInUser {
+  background-color: #4fb4d8;
+  color: black;
+}
+
+.navbarcss {
+  justify-content: space-between;
+  background-color: var(--mainDarkColor);
+}
+
+.span {
+  padding-right: 1rem;
+}
+
+.sidenav-divider {
+  border-bottom: 1px solid var(--mainLightColor);
+  margin: 18px 0 24px 0;
+  width: 100%;
+  margin-top: 18px;
+  margin-bottom: 18px;
+  opacity: 50%;
+}
+
+.mat-sidenav-container {
+  height: 100%;
+  align-items: center;
+  background: linear-gradient(0deg, var(--mainDarkColor) 0, #001613d1 100%)
+}
+
+.mat-sidenav-content {
+  background-image: url('src/assets/Images/Beeste.jpeg');
+  height: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover !important;
+  min-height: 100%;
+}
+
+.mat-sidenav {
+  background: var(--mainDarkColor);
+  background: linear-gradient(0deg, var(--mainDarkColor) 0, #d3c57ff1 100%);
+  padding-right: 20px;
+  padding-left: 20px;
+  height: 100%;
+  display: block;
+  color: black;
+  text-align: center;
+}
+
+.space-above-image {
+  padding-bottom: auto;
+}
+
+.logo {
+  position: relative;
+  padding: 0.5rem 0.7rem;
+  z-index: 4;
+  left: 10px;
+  height: 120px;
+  width: 130px;
+  border-radius: 40px;
+}
+
+.list-nav {
+  margin: 10px 15px 0;
+  border-radius: 30px;
+  width: 200px;
+  display: block;
+  text-decoration: none;
+  position: relative;
+  text-transform: uppercase;
+  cursor: pointer;
+  font-size: 0.75rem;
+  font-weight: 300;
+  padding: 10px 15px;
+  line-height: 1.5rem;
+  transition: all .3s ease 0s;
+}
+
+.navbar-top {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  width: 100%;
+}
+
+.icon-color {
+  color: var(--accentColor);
+}
+
+.icon-pos {
+  height: 10px;
+  margin-top: 20%;
+}
+
+.user-profile {
+  padding: 5px;
+  width: fit-content;
+}
+
+.user-name {
+  font-size: 0.850rem;
+  font-weight: 500;
+  height: 40px;
+  color: white;
+}
+
+/* ---------------------------------------------------- User Menu ---------------------------------------------------- */
+
+.user-menu {
+  background-color: var(--mainDarkColor) !important;
+}
+
+.user-menu-item {
+  color: var(--mainLightColor) !important;
+}
+
+/* ---------------------------------------------------- User Menu ---------------------------------------------------- */
+
+.menu-item {
+  margin: 10px 15px;
+  color: white;
+  width: 200px;
+  height: 40px;
+  display: block;
+  position: relative;
+  text-transform: uppercase;
+  text-align: left;
+  font-size: 0.850rem;
+  font-weight: 600;
+  padding: 10px 15px;
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
+  transition: all .3s ease 0s;
+}
+
+.mat-list-icon {
+  color: white;
+}
+
+.confirmActionButton {
+  background-color: #0bc7c4;
+}
+
+.mat-progress-bar-fill::after {
+  background-color: #dabd1b;
+}
+
+.mat-progress-bar-buffer {
+  background: #a7b4bd;
+}
+
+.mat-progress-bar {
+  border-radius: 2px;
+}
+
+.spinner-pos {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+}
+
+.spinner {
+  width: 6rem;
+  height: 6rem;
+  display: grid;
+  border: 4px solid #0000;
+  border-radius: 50%;
+  border-right-color: var(--accentColor);
+  animation: spinner-a4dj62 1s infinite linear;
+}
+
+.spinner::before,
+.spinner::after {
+  content: "";
+  grid-area: 1/1;
+  margin: 2px;
+  border: inherit;
+  border-radius: 50%;
+  animation: spinner-a4dj62 2s infinite;
+}
+
+.spinner::after {
+  margin: 8px;
+  animation-duration: 3s;
+}
+
+@keyframes spinner-a4dj62 {
+  100% {
+    transform: rotate(1turn);
+  }
+}
+
+table {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 10px;
+}
+
+mat-paginator {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 10px;
+}
+
+.searchLabel {
+  color: var(--accentColor) !important;
+}
+
+.title {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center !important;
+  font-size: 40px !important;
+  color: var(--mainDarkColor)
+}
+
+.titleCard {
+  display: flex;
+  flex-direction: column;
+  width: 95%;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: var(--mainDarkColor);
+}
+
+.mat-row .mat-cell {
+  cursor: pointer;
+}
+
+.mat-row:hover .mat-cell {
+  background-color: #2a2b38ad;
+  color: white;
+  transition: all .3s ease 0s;
+}
+
+.tableContainer {
+  overflow: auto;
+}
+
+/* --------------------------------------------INPUT FIELD COLORS --------------------------------------------*/
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px white inset !important;
+  box-shadow: 0 0 0 30px white inset !important;
+}
+
+mat-dialog-container {
+
+  text-align: left;
+  position: relative;
+  width: 23%;
+  height: 280px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10px;
+  float: center;
+  border-radius: 10px !important;
+  border: 2px solid;
+  border-color: #2a2b38;
+  box-shadow: 5px 5px 5px #2a2b38dc !important;
+  line-height: 1.5;
+  padding-left: 15px;
+  padding-right: 30px;
+}
+
+.containerHeading {
+  text-align: center;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  font-size: 1.375rem !important;
+}
+
+.mat-column-select {
+  overflow: initial;
+}
+
+.addButton {
+  height: 3.5rem;
+  top: 1rem;
+  color: rgb(0, 0, 0);
+}
+
+.search {
+  color: rgb(0, 0, 0);
+  width: 40%;
+}
+
+.inlineParent {
+  color: white;
+}
+
+.form {
+  display: flex;
+  padding-top: 6px;
+}
+
+.mat-form-field {
+  font-size: 16px;
+  flex-grow: 1;
+}
+
+.mat-dialog-content {
+  display: flex;
+  flex-direction: column;
+  min-width: 450px;
+  min-height: auto;
+}
+
+/* -------------------------------------------------------------------------- Hamburger Menu  -------------------------------------------------------------------------- */
+
+.titleSub {
+  overflow: hidden;
+  background-color: var(--mainDarkColor)00;
+  flex-direction: column;
+  width: 95%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 1%;
+  box-shadow: none !important;
+}
+
+.dash {
+  overflow: hidden;
+  background-color: rgba(198, 171, 133, 0.788);
+  flex-direction: row;
+  width: 95%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 1%;
+}
+
+.graphs {
+  overflow: hidden;
+  background-color: rgb(42, 43, 56, 0.2);
+  flex-direction: column;
+  width: 95%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 1%;
+  box-shadow: 2 2 2;
+}
+
+.tableBtns {
+  overflow: hidden;
+  background-color: var(--mainDarkColor)00;
+  flex-direction: column;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 1%;
+  padding-right: 0px !important;
+  padding-left: 0px !important;
+  box-shadow: none !important;
+}
+
+.table {
+  border-radius: 15px 15px 15px 15px !important;
+}
+
+.CRUDtable {
+  border-radius: 15px 15px 15px 15px !important;
+}
+
+.titleSub th {
+
+  background-color: var(--mainDarkColor);
+  color: white;
+  text-align: left;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+#productType {
+  display: flex;
+  text-align: left;
+  margin-left: 3%;
+  margin-right: 2%;
+}
+
+.titleSub th,
+.titleSub td {
+  padding: 12px 15px;
+}
+
+.titleSub tr {
+  border-bottom: 1px solid #dddddd;
+}
+
+.titleSub tr:nth-of-type(even) {
+  background-color: #f3f3f3;
+}
+
+.titleSub tbody tr:last-of-type {
+  border-bottom: 2px solid var(--mainDarkColor);
+}
+
+.titleSub td tr.active-row {
+  font-weight: bold;
+  color: var(--accentColor);
+}
+
+.ham {
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 400ms;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.hamRotate.active {
+  transform: rotate(45deg);
+}
+
+.hamRotate180.active {
+  transform: rotate(180deg);
+}
+
+.line {
+  fill: none;
+  transition: stroke-dasharray 400ms, stroke-dashoffset 400ms;
+  stroke: var(--accentColor);
+  stroke-width: 4.0;
+  stroke-linecap: round;
+}
+
+.ham5 .top {
+  stroke-dasharray: 40 82;
+}
+
+.ham5 .bottom {
+  stroke-dasharray: 40 82;
+}
+
+.ham5.active .top {
+  stroke-dasharray: 14 82;
+  stroke-dashoffset: -72px;
+}
+
+.ham5.active .bottom {
+  stroke-dasharray: 14 82;
+  stroke-dashoffset: -72px;
+}
+
+/* -------------------------------------------------------------------------- Hamburger Menu -------------------------------------------------------------------------- */
+
+
+/* -------------------------------------------------------------------------- Login --------------------------------------------------------------------------*/
+.login-bg-img {
+  /* The image used */
+  background-image: url('src/assets/Images/Ubuntu_Login1.jpg');
+
+  height: auto;
+
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover !important;
+  background-attachment: fixed;
+  background-color: linear-gradient(0deg, var(--accentColor) 0, var(--mainDarkColor) 100%);
+
+  min-height: 100vh;
+}
+
+.login-card {
+  width: auto;
+  padding: 1.9rem 1.2rem;
+  text-align: center;
+  background: #2a2b38;
+  margin-top: 10%;
+  border-radius: 6px;
+}
+
+.login-field {
+  margin-top: .5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .5em;
+  background-color: #1f2029;
+  border-radius: 4px;
+  padding: .5em 1em;
+}
+
+.login-input-icon {
+  height: 1em;
+  width: 1em;
+  fill: #ffeba7;
+}
+
+.login-input-field {
+  background: none;
+  border: none;
+  outline: none;
+  width: 100%;
+  color: #d3d3d3;
+}
+
+.login-input-viewbtn {
+  background: transparent;
+  border: none;
+}
+
+.login-input-viewbtn:hover {
+  background: #dabd1b3f;
+  border-radius: 4px;
+  transition: all 0.3s ease 0s;
+}
+
+.login-title {
+  margin-bottom: 1rem;
+  font-size: 2.5em;
+  font-weight: 800;
+  color: #f5f5f5;
+}
+
+.login-btn {
+  margin: 1rem;
+  border: none;
+  border-radius: 4px;
+  font-weight: bold;
+  font-size: 1em;
+  text-transform: uppercase;
+  padding: 0.6em 1.2em;
+  background-color: #ffeba7;
+  color: #5e6681;
+  box-shadow: 0 8px 24px 0 rgb(255 235 167 / 20%);
+  transition: all .3s ease-in-out;
+}
+
+.login-btn-link {
+  color: #f5f5f5;
+  display: block;
+  font-size: .75em;
+  transition: color .3s ease-out;
+}
+
+.login-field input:focus::placeholder {
+  opacity: 0;
+  transition: opacity .3s;
+}
+
+.login-btn:hover {
+  background-color: #5e6681;
+  color: #ffeba7;
+  box-shadow: 0 8px 24px 0 rgb(16 39 112 / 20%);
+}
+
+
+.login-btn-link:hover {
+  color: #ffeba7;
+}
+
+.login-hint-pass{
+  align-items: left;
+  text-align: left;
+}
+
+/* ----------------------------------------------------- Settings ------------------------------------------------------------*/
+
+.settingsCard {
+  width: auto;
+  height: auto;
+  background-color: rgba(255, 255, 255, 0.5);
+  overflow: hidden;
+}
+
+.permissionsCard {
+  width: 50rem !important;
+  height: auto;
+  background-color: rgba(255, 0, 0, 0) !important;
+  box-shadow: none !important;
+  overflow: hidden;
+}
+
+.updatePermissionsCard{
+  width: 20rem !important;
+  height: auto;
+  background-color: rgba(255, 0, 0, 0) !important;
+  box-shadow: none !important;
+  overflow: hidden;
+}
+
+.mat-tree {
+  background-color: transparent !important;
+}
+
+/* ----------------------------------------------------- Settings ------------------------------------------------------------*/
+
+.f-l {
+  float: left !important;
+}
+
+.f-r {
+  float: right !important;
+}
+
+/* -----------------------------------------------------Action Buttons In Tables -------------------------------------------------------- */
+
+.mat-column-actions {
+  word-wrap: break-word !important;
+  white-space: unset !important;
+  flex: 0 0 28% !important;
+  width: 0% !important;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+
+  word-break: break-word;
+
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphens: auto;
+}
+
+.mat-column-Actions {
+  word-wrap: break-word !important;
+  white-space: unset !important;
+  flex: 0 0 28% !important;
+  width: 0% !important;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+
+  word-break: break-word;
+
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphens: auto;
+}
+
+.mat-column-helpDescription {
+  word-wrap: break-word !important;
+  white-space: unset !important;
+  flex: 0 0 28% !important;
+  width: 80% !important;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+
+  word-break: break-word;
+
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphens: auto;
+}
+
+
+/* -----------------------------------------------------Action Buttons In Tables -------------------------------------------------------- */
+
+.cdk-overlay-pane.my-dialog {
+  position: relative !important;
+}
+
+.close.mat-button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 5px;
+  line-height: 14px;
+  min-width: auto;
+}
+
+.helpBtn{
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 5px;
+  line-height: 14px;
+  min-width: auto;
+  color: var(--mainDarkColor);
+  opacity: 0.3;
+}
+
+
+
+.helpBtn:hover{
+  opacity: 1;
+  transition: all .3s ease-out;
+}
+
+.aboutUsBtn{
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 5px;
+  line-height: 14px;
+  min-width: auto;
+  color: var(--mainDarkColor);
+  opacity: 0.6;
+}
+
+.aboutUsBtn:hover{
+  opacity: 1;
+  transition: all .3s ease-out;
+}
+
+/* ------------------------------------------------ Loading in tables ------------------------------------------------------------------------ */
+
+.example-container {
+  position: relative;
+}
+
+.example-table-container {
+  position: relative;
+  min-height: 200px;
+  max-height: 400px;
+  overflow: auto;
+}
+
+.example-loading-shade {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 72px;
+  /* height: 400px; */
+  right: 0;
+  background: rgba(0, 0, 0, 0.15);
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ------------------------------------------------ Loading in tables ------------------------------------------------------------------------ */
+
+.mat-dialog-title {
+  font-size: 1.2rem !important;
+  font-weight: 500 !important;
+  line-height: 1.334 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
+}
+
+/* ------------------------------------------------ About ------------------------------------------------------------------------ */
+ .card{
+ margin: 10px;
+ background-color: #aca169 ;
+ color: var(--mainLightColor);
+}
+
+.aboutCardTitleCard{
+  margin: 10px;
+  background-color: #aca169 ;
+  color: var(--mainLightColor);
+}
+
+.card:hover{
+  background-color: var(--mainLightColor);
+  color: var(--mainDarkColor);
+  transition: all 1s ease-out;
+  text-align: left;
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10px;
+  float: center;
+  border-radius: 10px !important;
+  border: 2px solid;
+  border-color: rgba(0, 0, 0, 0.493);
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.452) !important;
+  line-height: 1.5;
+  padding-left: 15px;
+  padding-right: 15px;
+
+}
+
+
+.card:hover::after{
+  content: "";
+  margin: 10px;
+  background-color: #aca169 ;
+  color: var(--mainLightColor);
+  transition: all 1s ease-in;
+  /* position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #aca169;
+  z-index: -1;
+  transition: all 1s ease-out;
+  transform: scaleX(0);
+  transform-origin: left; */
+}
+
+.card:hover::after{
+  transform: scaleX(1);
+}
+.card-img-top{
+  object-fit: cover;
+}
+
+.card-img-top:hover{
+  object-fit: cover;
+  transition: all 1s ease-out;
+  margin-top: 15px;
+  border-radius: 10px !important;
+
+
+}
+.backBtnAbout{
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 5px;
+  line-height: 14px;
+  min-width: auto;
+  color: var(--mainDarkColor);
+}
+
+.aboutBG{
+  background-image: url('src/assets/Images/Beeste.jpeg');
+  height: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover !important;
+  position: relative;
+  min-height: 100vh;
+}
+/* ------------------------------------------------ About ------------------------------------------------------------------------ */

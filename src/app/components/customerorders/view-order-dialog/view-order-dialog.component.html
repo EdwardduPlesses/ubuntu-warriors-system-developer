@@ -1,0 +1,78 @@
+<div class="container"><button tabindex="-1" class="close" mat-button (click)="onNoClick()">
+            <mat-icon aria-hidden="false">close</mat-icon>
+            </button>
+    <h3 mat-dialog-title>View Order</h3>
+  
+    <form [formGroup]="viewOrder" class="mat-dialog-content">
+        <div class="form">
+            <mat-form-field color="accent">
+              <input matInput [readonly]="true" type="number" #input  placeholder="Order ID" id="orderId" formControlName="orderId">
+            </mat-form-field>
+          </div>
+
+          <div class="form">
+            <mat-form-field color="accent">
+              <input matInput [readonly]="true" #inputstate  placeholder="Customer Name" id="customerName" formControlName="customerName" required >
+            </mat-form-field>
+          </div>
+
+          <div class="form">
+            <mat-form-field color="accent">
+              <input matInput [readonly]="true" #inputstate  placeholder="Customer Surname" id="customerSurname" formControlName="customerSurname" required >
+            </mat-form-field>
+          </div>
+      <!--Textarea for demo purposes-->
+      <div class="form">
+        <mat-form-field color="accent">
+          <input matInput [readonly]="true" type="number" #input  placeholder="Order Amount" id="orderAmount" formControlName="orderAmount">
+        </mat-form-field>
+      </div>
+  
+      <!--Contains mat-hint for characters count and has maxLengt set-->
+      <div class="form">
+        <mat-form-field color="accent">
+          <input matInput [readonly]="true" #inputstate  placeholder="Order Date Placed" id="orderDatePlaced" formControlName="orderDatePlaced" required >
+        </mat-form-field>
+      </div>
+
+      <div class="form">
+        <mat-form-field color="accent">
+          <input matInput [readonly]="true" #inputstate  placeholder="Order Date Collected" id="orderDateCollected" formControlName="orderDateCollected" required >
+        </mat-form-field>
+      </div>
+
+      <div class="form">
+        <mat-form-field color="accent">
+          <input matInput [readonly]="true" #inputstate  placeholder="Order Status" id="orderStatus" formControlName="orderStatus" required >
+        </mat-form-field>
+      </div>
+<h2>Products Ordered</h2>
+<!-- <ul>
+  <li *ngFor="let orderline of orderlines">{{ orderline.quantity }}x {{ orderline.product.productName }} for {{ orderline.product.productPrice | currency: 'R' }}</li></ul> -->
+  <div class="col">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Product Name</th>
+          <th scope="col">Quantity</th>
+          <th scope="col">Product Price</th>
+          <th scope="col">Total Price</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let orderline of orderlines">
+          <td scope="row">{{orderline.product.productName}}</td>
+          <td>{{orderline.quantity}}</td>
+          <td>{{orderline.product.productPrice | currency: 'R'}}</td>
+          <td>{{(orderline.product.productPrice * orderline.quantity) | currency: 'R'}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+      <div mat-dialog-actions>
+        <button mat-raised-button (click)="onNoClick()" tabindex="-1" color="warn">Close</button>
+      </div>
+      <!-- [type]="submit" -->
+    </form>
+  </div>
+  

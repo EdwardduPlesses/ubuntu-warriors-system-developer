@@ -1,0 +1,96 @@
+table {
+    margin-left: auto;
+    margin-right: auto;
+    width: 90%;
+    border-radius: 10px;
+    background-color: #d3edea;
+
+  }
+
+  mat-paginator {
+    margin-left: auto;
+    margin-right: auto;
+    width: 90%;
+    background-color: #d3edea;
+
+  }
+  
+  .add {
+    margin-left: 30%;
+  }
+
+  .titleUsers{
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.container{
+  display:  flex;
+  flex-direction: column;
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 50px;
+  margin-top: 10px;
+  background-color: #009d9a;
+
+}
+
+.titleUsersCard{
+  display:  flex;
+  flex-direction: column;
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 10px;
+  margin-top: 100px;
+  background-color: #009d9a;
+}
+
+  /* Structure */
+.mat-form-field {
+  margin-left: 5%;
+  margin-right: 5%;
+  font-size: 14px;
+  width: 50%;
+}
+
+h1 {
+
+  font-family: "Helvetica";
+}
+
+.inlineChild{
+  display: inline-block;
+}
+
+.inlineParent{
+  white-space: nowrap;
+}
+
+.viewIcon{
+  color: #0bc7c4;
+}
+
+.editIcon{
+ color: #018b89;
+}
+
+.deleteIcon{
+  color: #09333f;
+}
+
+.crudButtons{
+  margin-left: 1px;
+  margin-right: 1px;
+
+}
+
+#userType {
+  width: 10%;
+  margin-left: 85%;
+  color: #09333f;
+
+}

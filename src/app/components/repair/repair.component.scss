@@ -1,0 +1,239 @@
+.root {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.app-name {
+    font-size: 28px;
+    font-family: 'Lato', sans-serif;
+    font-weight: bold;
+}
+
+.has-gradient-text {
+    background: -webkit-linear-gradient(#13f7f4, #2af598);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+
+.board {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+
+    //Override Automatic Minimum Size
+    //https://stackoverflow.com/questions/36247140/why-dont-flex-items-shrink-past-content-size
+    min-width: 0;
+    min-height: 0;
+    overflow: hidden;
+    .board-bar {
+        background: rgba(gray, 0.5);
+        padding: 8px 15px;
+
+        .board-name {
+            font-size: 20px;
+            font-weight: bold;
+            color: white;
+        }
+    }
+
+    .board-wrapper {
+        display: flex;
+        flex-grow: 1;
+        overflow-x: auto;
+
+        .board-columns {
+            display: flex;
+            flex-grow: 1;
+
+            .board-column {
+                display: flex;
+                flex-direction: column;
+                flex-grow: 1;
+                flex-basis: 0; // to force the columns to all be the same size, regardless of content
+
+                min-width: 300px;
+                margin: 3.125rem;
+                margin-top: 5px;
+                padding: 25px;
+
+                border-radius: 4px;
+
+                background: rgba(white, 0.5);
+
+                &:not(:first-child) {
+                    margin-left: 0;
+                }
+
+                .column-title {
+                    font-size: 1.25rem;
+                    font-weight: 800;
+                    font-family: 'Lato', sans-serif;
+                    text-transform: uppercase;
+                    margin-bottom: 5%;
+                    display: flex;
+                    margin-top: -5px;
+                    flex-direction: row;
+                }
+            }
+        }
+    }
+}
+
+
+.tasks-container {
+    flex-grow: 1;
+    overflow-y: auto;
+    
+}
+
+.task {
+    display: flex;
+        padding: 15px 12px;
+        background: white;
+        border-bottom: solid 1px #ddd;
+        border-radius: 4px;
+        margin-bottom: 15px;
+        box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.05),
+            0 3px 14px 2px rgba(0, 0, 0, 0.05);
+        overflow: hidden;
+        z-index: 1;
+        position: relative;
+    }
+
+// .task::before{
+//     content: "";
+//     position: absolute;
+//     top: 0;
+//     left: 0;
+//     height: 100%;
+//     width: 0;
+//     border-radius: 4px;
+//     background-color: #3b4849;
+//     z-index: -1;
+//     -webkit-box-shadow: 4px 8px 19px -3px rgba(0,0,0,0.27);
+//     box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.05),
+//     0 3px 14px 2px rgba(0, 0, 0, 0.05);
+//     transition: all 250ms
+// }
+
+// .task:hover{
+//     color: black
+// }
+
+// .task:hover::before{
+//     width: 100%;
+// }
+
+.cdk-drag-preview {
+    box-sizing: border-box;
+    border-radius: 4px;
+    box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+        0 8px 10px 1px rgba(0, 0, 0, 0.14),
+        0 3px 14px 2px rgba(0, 0, 0, 0.12);
+}
+
+.cdk-drag-placeholder {
+    opacity: 0;
+}
+
+.cdk-drag-animating {
+    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.tasks-container.cdk-drop-list-dragging .task:not(.cdk-drag-placeholder) {
+    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.titleRepairs {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5px;
+}
+
+
+.repair-item {
+    margin-top: 1%;
+    display: flex;
+    flex: 1;
+    flex-wrap: wrap;
+}
+
+.emailSent{
+    font-size: 11px;
+    color:#dabd1b;
+}
+
+.repair-delete-button {
+    display: flex;
+    flex: 0 0 auto;
+    margin-top: -5px;
+    flex-direction: row;
+}
+
+.add-repair-button{
+     display: flex;
+     margin-top: -4px;
+     padding: 0;
+     justify-content: right;
+     align-items: right;
+     flex: 0 0 auto;
+     flex-direction: row;
+     height: 1.75rem;
+}
+.add-repair-button-icon{
+    height: 2.063rem;
+}
+
+.column-title-text{
+    margin-top: 1%;
+    display: flex;
+    flex: 1;
+    flex-wrap: wrap;
+    justify-content: left;
+    align-items: left;
+}
+
+
+
+.repair-card-text {
+    color: black;
+    bottom: 10px;
+    margin-top: 5px;
+}
+
+.search-Field{
+    // margin-right: 3.125rem;
+    // margin-left: 3.125rem;
+    // margin-top: 1.25rem;
+    // display: flex;
+    // flex: 1;
+    // flex-wrap: wrap;
+    // justify-content: left;
+    // align-items: left;
+    // right: auto;
+}
+.repair-calender-btn{
+    height: 3.5rem;
+}
+.calenderBtn{
+    display: block;
+    
+}
+
+.inlineChild {
+    display: inline-block;
+}
+
+.inlineParent {
+    white-space: nowrap;
+}
+
+.btnCalender{
+    margin-left: 1rem;
+    margin-top: 1.80rem;
+    height: 50%;
+}
+
+

@@ -1,0 +1,100 @@
+<div class="container"><button tabindex="-1" class="close" mat-button (click)="onNoClick()">
+            <mat-icon aria-hidden="false">close</mat-icon>
+            </button>
+    <h3 mat-dialog-title>Add New Order</h3>
+  
+    <form [formGroup]="addOrder" class="mat-dialog-content">
+      <div class="container"><button tabindex="-1" class="close" mat-button (click)="onNoClick()">
+            <mat-icon aria-hidden="false">close</mat-icon>
+            </button>
+        <div class="row">
+          <div class="col">
+        <div class="form">
+          <mat-form-field color="accent" appearance="fill">
+            <mat-label>Customer</mat-label>
+            <mat-select formControlName="customerId">
+              <mat-option  *ngFor="let customer of customers" [value]="customer.customerId" >
+                {{customer.customerName + " " + customer.customerSurname}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <mat-card class="products-card">
+          <mat-card-subtitle>Add products to the order</mat-card-subtitle>
+          <mat-card-title>Products</mat-card-title>
+          <mat-card-content>
+            <form [formGroup]="addOrderLine" class="mat-dialog-content">
+            <div class="form">
+              <mat-form-field color="accent" appearance="fill">
+                <mat-select formControlName="productId">
+                  <mat-option  *ngFor="let product of products" [value]="product.productId" >
+                    {{product.productName}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="form">
+              <mat-form-field color="accent">
+                <input matInput type="number" formControlName="quantity" #input  placeholder="Quantity">
+              </mat-form-field>
+            </div>
+            </form>
+          </mat-card-content>
+          <mat-divider inset></mat-divider>
+          <mat-card-actions>
+            <button mat-raised-button color="accent" [disabled]="!addOrderLine.valid" (click)="saveOrderLine()">Add To Cart</button>
+            <button mat-raised-button (click)="undoOrderLine()" tabindex="-1" color="primary">Undo</button>
+          </mat-card-actions>
+        </mat-card>
+
+      <div class="form">
+        <mat-form-field color="accent">
+          <input matInput type="number" #input  placeholder="Order Amount" id="orderAmount" formControlName="orderAmount" readonly>
+        </mat-form-field>
+      </div>
+      <span *ngIf="addOrder.controls['orderAmount'].errors?.['required'] && addOrder.controls['orderAmount'].touched" style="color: red;">Please enter order amount</span>
+
+  
+      <!--Contains mat-hint for characters count and has maxLengt set-->
+      <div class="form">
+        <mat-form-field color="accent">
+          <input matInput type="date" #inputstate  placeholder="Order Date Placed" id="orderDatePlaced" formControlName="orderDatePlaced" required readonly>
+        </mat-form-field>
+      </div>
+      <span *ngIf="addOrder.controls['orderDatePlaced'].errors?.['required'] && addOrder.controls['orderDatePlaced'].touched" style="color: red;">Please enter order date placed</span>
+  
+      
+      </div>
+      <div class="col">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">Product Name</th>
+              <th scope="col">Quantity</th>
+              <th scope="col">Product Price</th>
+              <th scope="col">Total Price</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of currentBasket">
+              <td scope="row">{{item.productName}}</td>
+              <td>{{item.quantity}}</td>
+              <td>{{item.productPrice}}</td>
+              <td>{{item.productPrice * item.quantity}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      </div>
+      </div>
+    </form>
+    <div mat-dialog-actions>
+      <button mat-raised-button color="primary" [disabled]="!addOrder.valid" (click)="confirmAdd()">Add</button>
+      <button mat-raised-button (click)="onNoClick()" tabindex="-1" color="accent">Cancel</button>
+    </div>
+    <div *ngIf="this.customerOrderService.progressBar">
+      <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    </div>
+  </div>
+  

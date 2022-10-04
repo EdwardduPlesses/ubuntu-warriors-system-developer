@@ -1,0 +1,22 @@
+<button tabindex="-1" class="close" mat-button (click)="onNoClick()">
+  <mat-icon aria-hidden="false">close</mat-icon>
+  </button>
+<div class="container">
+    <h3 mat-dialog-title>Update Product Type</h3>
+  
+    <form class="mat-dialog-content"  [formGroup]="updateProductTypeControl">
+  
+      <div class="form">
+        <mat-form-field color="accent">
+          <input matInput #input  placeholder="Name" id="ProductTypeName" formControlName="productTypeName" required >
+          <mat-error *ngIf="updateProductTypeControl.controls['productTypeName'].invalid">{{getErrorMessageName()}}</mat-error>
+        </mat-form-field>
+      </div>
+
+    </form>
+    <mat-dialog-actions>
+        <button mat-raised-button color="primary" color="primary" (click)="confirmUpdateType()">Update</button>
+        <button mat-raised-button (click)="onNoClick()" tabindex="-1" color="accent">Cancel</button>
+    </mat-dialog-actions>
+</div>
+

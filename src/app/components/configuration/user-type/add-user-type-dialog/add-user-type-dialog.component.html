@@ -1,0 +1,26 @@
+<button tabindex="-1" class="close" mat-button (click)="onNoClick()">
+  <mat-icon aria-hidden="false">close</mat-icon>
+  </button>
+<div class="container">
+    <h3 mat-dialog-title>Add New User Type</h3>
+  
+    <form [formGroup]="addNewType" class="mat-dialog-content" #formControl="ngForm">
+
+      <div class="form">
+        <mat-form-field color="accent">
+          <input matInput #input  placeholder="Name" id="userTypeName" formControlName="userTypeName">
+          <mat-error *ngIf="addNewType.controls['userTypeName'].invalid">{{getErrorMessageName()}}
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <!--Textarea for demo purposes-->
+    
+     
+      
+    </form>
+    <div mat-dialog-actions>
+      <button mat-raised-button color="primary" (click)="confirmAddType()">Add</button>
+      <button mat-raised-button (click)="onNoClick()" tabindex="-1" color="accent">Cancel</button>
+    </div>
+</div>

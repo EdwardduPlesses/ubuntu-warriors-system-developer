@@ -1,0 +1,54 @@
+<mat-card class="titleUsersCard">
+  <mat-card-title class="titleUsers">Stock Takes</mat-card-title>
+</mat-card>
+<mat-card class="container">
+  <div class="inlineParent">
+
+    <mat-form-field color="accent" class="inlineChild" appearance="standard">
+      <mat-label>Search</mat-label>
+      <input matInput class="inlineChild search"  (keyup)="applyFilter($event)" #input>
+    </mat-form-field>
+    
+      <button mat-icon-button class="inlineChild actionButton" [matMenuTriggerFor]="menu">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="addStockTakeInventory()">
+          <mat-icon>add</mat-icon>
+          <span>Add Inventory Stocktake</span>
+        </button>
+        <button mat-menu-item (click)="addStockTakeProduct()">
+          <mat-icon>add</mat-icon>
+          <span>Add Product Stocktake</span>
+        </button>
+      </mat-menu>
+
+  </div>
+  <div style="overflow-x:auto;">
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+      <!--- Note that these columns can be defined in any order.
+              The actual rendered columns are set as a property on the row definition" -->
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="stocktakeID">
+        <th mat-header-cell *matHeaderCellDef> Stocktake ID </th>
+        <td mat-cell *matCellDef="let stocktake"> {{stocktake.stockTakeId}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="stocktakeDate">
+        <th mat-header-cell *matHeaderCellDef> Stocktake Date </th>
+        <td mat-cell *matCellDef="let stocktake"> {{stocktake.stockTakeDate | date}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="stocktakeDesc">
+        <th mat-header-cell *matHeaderCellDef> Stocktake Description </th>
+        <td mat-cell *matCellDef="let stocktake"> {{stocktake.stockTakeDesc}} </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons color="accent" class="mat-elevation-z8">
+    </mat-paginator>
+  </div>
+</mat-card>

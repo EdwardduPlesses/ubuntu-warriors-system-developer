@@ -1,0 +1,151 @@
+<mat-toolbar class="navbarcss" *ngIf="this.authService.loggedIn.getValue() === true">
+  <svg (click)="checkbox()" type="checkbox" class="ham hamRotate180 ham5" viewBox="0 0 100 100" width="50"
+    onclick="this.classList.toggle('active')">
+    <path class="line top"
+      d="m 30,33 h 40 c 0,0 8.5,-0.68551 8.5,10.375 0,8.292653 -6.122707,9.002293 -8.5,6.625 l -11.071429,-11.071429" />
+    <path class="line middle" d="m 70,50 h -40" />
+    <path class="line bottom"
+      d="m 30,67 h 40 c 0,0 8.5,0.68551 8.5,-10.375 0,-8.292653 -6.122707,-9.002293 -8.5,-6.625 l -11.071429,11.071429" />
+  </svg>
+
+  <span class="title-color"> L.A. ARMS</span>
+  <div class="spacer"></div>
+
+  <div class="user-profile">
+    <button mat-button [matMenuTriggerFor]="menu">
+      <mat-icon class="icon-color icon-pos">account_circle</mat-icon>
+      <div class="user-name">{{this.authService.currentUser.userName}}</div>
+    </button>
+  </div>
+
+  <mat-menu class="user-menu" #menu="matMenu">
+    <!-- Login Button -->
+    <button mat-menu-item class="user-menu-item" routerLink="/login" (click)="this.authService.doLogout()">
+      <mat-icon class="user-menu-item">logout</mat-icon>
+      <span>Logout</span>
+    </button>
+
+    <!-- Change Password Button -->
+    <button mat-menu-item class="user-menu-item" routerLink="/change-password">
+      <mat-icon class="user-menu-item">edit</mat-icon>
+      <span>Change Password</span>
+    </button>
+
+    <!-- Configuration Button -->
+    <button mat-menu-item class="user-menu-item" *ngIf="this.authService.isAdminObs.getValue() === true"
+      routerLink="/configuration">
+      <mat-icon class="user-menu-item">settings</mat-icon>
+      <span>Configuration</span>
+    </button>
+
+    <!-- Help Button -->
+    <button mat-menu-item class="user-menu-item" *ngIf="this.authService.isAdminObs.getValue() === true"
+      routerLink="/help">
+      <mat-icon class="user-menu-item">help</mat-icon>
+      <span>Help</span>
+    </button>
+  </mat-menu>
+</mat-toolbar>
+
+<mat-sidenav-container *ngIf="this.authService.loggedIn.getValue() === true" autosize>
+  <mat-sidenav mode="side" opened="isExpanded">
+
+    <mat-nav-list>
+      <a mat-list-item [disableRipple]="true" *ngIf="this.authService.isAdminObs.getValue() === true"
+        routerLink="/dashboard" routerLinkActive="active">
+        <mat-icon mat-list-icon>show_chart</mat-icon>
+        <span *ngIf="isExpanded" class="menu-item">Dashboard</span>
+      </a>
+      <div class="sidenav-divider" *ngIf="this.authService.isAdminObs.getValue() === true"></div>
+
+      <a mat-list-item [disableRipple]="true" *ngIf="this.authService.currentUser.permissions.includes(' Sales')"
+        routerLink="/sales" routerLinkActive="active">
+        <mat-icon mat-list-icon>attach_money</mat-icon>
+        <span *ngIf="isExpanded" class="menu-item">Sales</span>
+      </a>
+
+        <a mat-list-item [disableRipple]="true" *ngIf="this.authService.currentUser.permissions.includes(' Products')" routerLink="/products" routerLinkActive="active">
+          <mat-icon mat-list-icon>barcode_reader</mat-icon>
+          <span *ngIf="isExpanded" class="menu-item">Products</span>
+        </a>
+        <div class="sidenav-divider" *ngIf="this.authService.isAdminObs.getValue() === true"></div>
+
+      <a mat-list-item [disableRipple]="true" *ngIf="this.authService.currentUser.permissions.includes(' Repairs')"
+        routerLink="/repair" routerLinkActive="active">
+        <mat-icon mat-list-icon>build</mat-icon>
+        <span *ngIf="isExpanded" class="menu-item">Repairs</span>
+      </a>
+
+      <a mat-list-item [disableRipple]="true"
+        *ngIf="this.authService.currentUser.permissions.includes(' Completed Repairs')" routerLink="/completedRepairs"
+        routerLinkActive="active">
+        <mat-icon mat-list-icon>done</mat-icon>
+        <span *ngIf="isExpanded" class="menu-item">Completed Repairs</span>
+      </a>
+
+      <a mat-list-item [disableRipple]="true" *ngIf="this.authService.currentUser.permissions.includes(' Inventory')"
+        routerLink="/inventory" routerLinkActive="active">
+        <mat-icon mat-list-icon>inventory_2</mat-icon>
+        <span *ngIf="isExpanded" class="menu-item">Inventory</span>
+      </a>
+      <div class="sidenav-divider" *ngIf="this.authService.isAdminObs.getValue() === true"></div>
+
+      <!-- <a mat-list-item [disableRipple]="true" *ngIf="this.authService.isAdminObs.getValue() === true" routerLink="/users" routerLinkActive="active">
+          <mat-icon mat-list-icon>engineering</mat-icon>
+          <span *ngIf="isExpanded" class="menu-item">Users</span>
+        </a> -->
+
+      <a mat-list-item [disableRipple]="true" *ngIf="this.authService.currentUser.permissions.includes(' Customers')"
+        routerLink="/customer" routerLinkActive="active">
+        <mat-icon mat-list-icon>people</mat-icon>
+        <span *ngIf="isExpanded" class="menu-item">Customers</span>
+      </a>
+
+        <a mat-list-item [disableRipple]="true" *ngIf="this.authService.currentUser.permissions.includes(' Customer Orders')" routerLink="/customer-orders" routerLinkActive="active">
+          <mat-icon mat-list-icon>add_shopping_cart</mat-icon>
+          <span *ngIf="isExpanded" class="menu-item">Customer Orders</span>
+        </a>
+        <div class="sidenav-divider" *ngIf="this.authService.isAdminObs.getValue() === true"></div>
+
+      <a mat-list-item [disableRipple]="true" *ngIf="this.authService.currentUser.permissions.includes(' Suppliers')"
+        routerLink="/supplier" routerLinkActive="active">
+        <mat-icon mat-list-icon>recent_actors</mat-icon>
+        <span *ngIf="isExpanded" class="menu-item">Suppliers</span>
+      </a>
+
+      <a mat-list-item [disableRipple]="true"
+        *ngIf="this.authService.currentUser.permissions.includes(' Supplier Orders')" routerLink="/supplier-orders"
+        routerLinkActive="active">
+        <mat-icon mat-list-icon>local_shipping</mat-icon>
+        <span *ngIf="isExpanded" class="menu-item">Supplier Orders</span>
+      </a>
+
+      <!-- <a mat-list-item [disableRipple]="true" routerLink="/audit-trail" routerLinkActive="active">
+          <mat-icon mat-list-icon>assignment</mat-icon>
+          <span *ngIf="isExpanded" class="menu-item">Audit Trail</span>
+        </a> -->
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content class="backgroundimagE">
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+
+</mat-sidenav-container>
+
+<!-- redirect to Login Page -->
+<div *ngIf="this.authService.loggedIn.getValue() === false
+ && this.authService.forgotPasswordObs.getValue() === false
+ && this.authService.aboutPageObs.getValue() === false">
+  <app-login></app-login>
+</div>
+
+<!-- to reset password from login page (forgot password) -->
+<div *ngIf="this.authService.forgotPasswordObs.getValue() === true
+ && this.authService.loggedIn.getValue() === false">
+  <app-reset-password></app-reset-password>
+</div>
+
+<div *ngIf="this.authService.aboutPageObs.getValue() === true">
+  <app-about></app-about>
+</div>

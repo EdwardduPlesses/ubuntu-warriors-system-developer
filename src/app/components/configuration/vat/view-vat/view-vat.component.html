@@ -1,0 +1,10 @@
+<div>
+    <h1 mat-dialog-title>Current VAT Rate</h1>
+    <div mat-dialog-content>
+     <h2>VAT Rate: {{vatInfo.vatRate + '%'}}</h2>
+     <h2>Date Updated: {{vatInfo.vatDate | date}}</h2>
+    </div>
+    <div>
+        <button  mat-raised-button color="primary" (click)="back()" tabindex="-1">Close</button>
+    </div>
+</div>
